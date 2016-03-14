@@ -1,0 +1,55 @@
+// Audience
+//
+// A single example of a target audience.
+//
+// Markup:
+//   <div class="audience">
+//     <div class="audience__general">
+//       <h3>Easygoing Explorers</h3>
+//       <p>They'd love to meet you for a nightcap at the swim-up bar.</p>
+//       <div class="audience-detail">
+//         <p class="subhead">Ages</p>
+//         <p><span class="h3">18</span><span> to </span><span class="h3">35</span></p>
+//       </div>
+//       <div class="audience-detail">
+//         <p class="subhead">Lots of travel</p>
+//         <p><span>both </span><span class="h3">business</span><span> and </span><span class="h3">leisure</span></p>
+//       </div>
+//     </div>
+//     <div class="audience__individual">
+//       <img src="http://placehold.it/200x300">
+//       <header class="header-card">
+//         <div class="header-card__tab">Easygoing Explorers</div>
+//         <h4>Meet Allie</h4>
+//       </header>
+//       <blockquote>
+//         <p>“I love to relax and refresh when I travel. Just detach leave work behind. But I also love to explore new places, meet interesting people and find out where the locals go. In the city, out in nature, I like it all.</p>
+//         <p>I don’t usually search for travel deals until I have a trip in mind. Once I do, I go to websites and social media, but I don’t plan every single thing. I look for travel sites to make things convenient and efficient; if someone else can handle things that’s great. I don't need endless search results. I just want to book my trip and get on to other things. And though I use travel sites, I’m not always convinced they have the best prices. I don't stress over every detail while planning my trips. I just figure out the broad strokes, then go with the flow.”</p>
+//       </blockquote>
+//     </div>
+//   </div>
+//
+// Styleguide 5.1
+.audience {
+  @include subgridContainer;
+}
+.audience__general {
+  @include colspan(10);
+  @include mq ($bp-medium) {
+    @include colspan(7,10);
+  }
+  @include mq ($bp-large) {
+    @include colspan(3,10);
+  }
+}
+.audience__individual {
+  @include colspan(12);
+  @include mq ($bp-medium) {
+    @include colspan(8,10);
+    @include colpush(2,10);
+  }
+  @include mq ($bp-large) {
+    @include colspan(6,10);
+    @include colpush(1,10);
+  }
+}

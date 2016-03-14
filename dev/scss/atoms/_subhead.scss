@@ -1,0 +1,24 @@
+// Subhead
+//
+// .light & - darker color on light bg
+//
+// Markup:
+//   <p class="subhead">This is a Subheader</p>
+//
+// Styleguide 3.4
+.subhead {
+  color: $accent;
+  font-weight: bold;
+  margin: $vr 0;
+
+  & + h1,
+  & + h2,
+  & + h3,
+  & + h4 {
+    margin-top: $vr * -1;
+  }
+
+  .light & {
+    color: $navy;
+  }
+}

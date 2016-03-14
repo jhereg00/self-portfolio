@@ -1,0 +1,10 @@
+// Disclaimer / Small font
+//
+// Markup:
+//   <p class="disclaimer">This is some small legalese. Blah blah blah blah.</p>
+//
+// Styleguide 3.7
+.disclaimer {
+  @include small;
+  @include font-primary;
+}

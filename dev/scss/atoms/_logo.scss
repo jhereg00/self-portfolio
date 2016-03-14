@@ -1,0 +1,31 @@
+// Logo
+//
+// Logo link.  Offset so the type in the logo aligns to the left of the link box.
+//
+// Markup:
+//   <a href="/" class="logo"><img src="/images/logo-travelocity.svg" alt="Travelocity Logo"></a>
+//
+// Styleguide 3.3
+.logo {
+  display: inline-block;
+  img {
+    display: inline-block;
+    width: 144px;
+    max-width: none;
+    margin-left: -30px;
+  }
+}
+.logo-svg {
+  display: block;
+  min-width: 144px;
+  width: 100%;
+  height: auto;
+  padding: 8.2%;
+  box-sizing: border-box;
+
+  .min-size & {
+    width: 144px;
+    margin: 8.2% auto;
+    padding: 0;
+  }
+}

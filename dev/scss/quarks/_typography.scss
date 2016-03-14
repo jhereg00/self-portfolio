@@ -1,0 +1,48 @@
+// Typography
+//
+// Base text styles. These are their defaults if nothing else is applied to them (a theme above them or a class on their element).
+//
+// .light & - alternate color scheme
+//
+// Markup:
+//   <h1>Heading Level 1</h1>
+//   <h2>Heading Level 2</h2>
+//   <h3>Heading Level 3</h3>
+//   <h4>Heading Level 4</h4>
+//   <p>Unde quo, minus eaque eligendi cum tempore, nulla, accusamus est labore tenetur modi eveniet obcaecati voluptas eius vitae vero dolorem nobis culpa nihil. Itaque saepe suscipit odit fugit quidem culpa.</p>
+//   <p>Accusantium recusandae, dignissimos rerum quaerat voluptatem quis itaque deleniti sequi autem explicabo dolore delectus, doloremque eos. Accusantium<sup>sup</sup> recusandae<sub>sub</sub> eius, debitis voluptates adipisci aspernatur rem voluptatum, delectus, tempore accusantium dolorum cumque error.</p>
+//
+// Styleguide 2.1
+h1,.h1 {
+  @include h1;
+  @include font-secondary;
+  margin: $vr * 3 auto $vr;
+}
+h2,.h2 {
+  @include h2;
+  margin: $vr * 2 auto $vr * 2;
+  font-weight: 700;
+}
+h3,.h3 {
+  @include h3;
+  margin: $vr auto;
+  font-weight: 700;
+}
+h4,.h4 {
+  @include h4;
+  margin: $vr auto;
+  font-weight: 700;
+}
+p {
+  margin: $vr auto;
+
+  .h1,.h2,.h3,.h4 {
+    display: inline;
+    vertical-align: middle;
+    // margin: 0 $wr / 2;
+    //
+    // &:first-child {
+    //   margin-left: 0;
+    // }
+  }
+}

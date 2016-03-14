@@ -1,0 +1,47 @@
+// Blockquote
+//
+// Regular blockquote meant to contain extended text from another source.
+//
+// Markup:
+//   <figure class="blockquote">
+//     <blockquote class="blockquote__quote"><p>Coming back to where you started is not the same as never leaving.</p></blockquote>
+//     <figcaption class="blockquote__citation"><p class="blockquote__name">Terry Pratchett</p><p>author of great books, wearer of cool hats</p></figcaption>
+//   </figure>
+//
+// Styleguide 4.5
+.blockquote {
+  margin: $vr * 6 $wr * 1;
+  padding: 0;
+  @include mq ($bp-medium) {
+    margin: $vr * 6 $wr * 3;
+  }
+}
+.blockquote__quote {
+  @include h3;
+  padding: 0;
+  margin: 0;
+}
+.blockquote__citation {
+  @include small;
+  margin: $vr * 2 auto 0;
+  padding-left: $wr * 2;
+  font-style: italic;
+  @include mq ($bp-medium) {
+    margin-left: $wr * 3;
+  }
+}
+.blockquote__name {
+  @include body;
+  font-weight: 300;
+  margin: 0;
+  font-style: normal;
+  & + * {
+    margin-top: 0;
+  }
+  &::before {
+    content: '―';
+    display: inline-block;
+    margin-left: $wr * -2;
+    width: $wr * 2;
+  }
+}

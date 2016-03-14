@@ -1,0 +1,16 @@
+// Drop Image
+//
+// Image intended to layer behind other elements
+//
+// Markup:
+//   <img src="http://placehold.it/250x300" class="drop-image">
+//
+// Styleguide 3.10
+.drop-image {
+  &, .section-main__content & {
+    display: block;
+    box-shadow: 0 $vr / 4 $vr / 2 rgba(black,.5);
+    margin: 0 0 $vr * -4 auto;
+    max-width: 66%;
+  }
+}

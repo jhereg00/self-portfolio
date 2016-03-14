@@ -1,0 +1,41 @@
+// Hero Blockquote
+//
+// Big blockquote meant to lead in to or break up content.
+//
+// Markup:
+//   <figure class="blockquote-hero">
+//     <blockquote class="blockquote-hero__quote"><p>Coming back to where you started is not the same as never leaving.</p></blockquote>
+//     <figcaption class="blockquote-hero__citation"><p class="blockquote-hero__name">Terry Pratchett</p><p>author of great books, wearer of cool hats</p></figcaption>
+//   </figure>
+//
+// Styleguide 4.2
+.blockquote-hero {
+  margin: $vr * 6 0;
+  padding: 0;
+}
+.blockquote-hero__quote {
+  @include h2;
+  @include font-secondary;
+  padding: 0;
+  margin: 0;
+}
+.blockquote-hero__citation {
+  margin: $vr * 2 auto 0;
+  padding-left: $wr * 2;
+  font-style: italic;
+}
+.blockquote-hero__name {
+  @include h4;
+  font-weight: 300;
+  margin: 0;
+  font-style: normal;
+  & + * {
+    margin-top: 0;
+  }
+  &::before {
+    content: '―';
+    display: inline-block;
+    margin-left: $wr * -2;
+    width: $wr * 2;
+  }
+}

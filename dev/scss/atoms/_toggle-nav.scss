@@ -1,0 +1,83 @@
+// Navigation Toggle
+//
+// Toggles navigation open/closed on mobile.  Hides above mobile sizes.
+//
+// Markup:
+//   <a class="toggle-nav" id="toggleNav">
+//     <span class="toggle-nav__bar toggle-nav__bar-1"></span>
+//     <span class="toggle-nav__bar toggle-nav__bar-2"></span>
+//     <span class="toggle-nav__bar toggle-nav__bar-3"></span>
+//   </a>
+//
+// Styleguide 3.6
+$width: $wr * 2;
+$height: $vr * 1.5;
+$total-anim-time: $transition-time;
+.toggle-nav {
+  display: block;
+  width: $width;
+  height: $height;
+  position: fixed;
+  top: $vr * 1.5; left: $wr;
+  z-index: 8675310;
+  cursor: pointer;
+  transition: left $transition-time $ease-soft;
+
+  @include mq ($bp-medium) {
+    display: none;
+  }
+}
+.toggle-nav__bar {
+  display: block;
+  // background: $white;
+  background: url('../images/swoosh-small.svg') center center no-repeat;
+  background-size: contain;
+  width: 100%;
+  height: $vr / 4;
+  position: absolute;
+  top: 0; left: 0;
+  // box-shadow: 0 0 10px black;
+  // complex transition shenanigans
+  // this is the timing/delay for CLOSING the nav
+  transition:
+    top $total-anim-time / 2 $ease-soft $total-anim-time / 2,
+    transform $total-anim-time / 2 $ease-soft 0s,
+    opacity 0s linear $total-anim-time / 2;
+}
+// individual bars
+
+.toggle-nav__bar-2 {
+  top: $height / 2 - $vr / 8;
+  transform: scaleX(-1) rotate(5deg);
+}
+.toggle-nav__bar-3 {
+  top: $height - $vr / 4;
+}
+
+// open state
+// class is expected to be applied to the body element
+.nav-open {
+  // .toggle-nav {
+  //   left: $nav-width - $width - $wr;
+  // }
+  .toggle-nav__bar {
+    // complex transition shenanigans
+    // this is the timing/delay for OPENING the nav
+    transition:
+      top $total-anim-time / 2 $ease-soft 0s,
+      transform $total-anim-time / 2 $ease-soft $total-anim-time / 2,
+      opacity 0s linear $total-anim-time / 2;
+
+    // move them all to center
+    top: $height / 2 - $vr / 8;
+  }
+  .toggle-nav__bar-1 {
+    transform: rotate(45deg);
+  }
+  .toggle-nav__bar-2 {
+    opacity: 0;
+  }
+  .toggle-nav__bar-3 {
+    transform: rotate(-45deg);
+  }
+}

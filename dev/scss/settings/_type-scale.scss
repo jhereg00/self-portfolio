@@ -1,0 +1,44 @@
+// Type Scale
+//
+// To use one of these type scale formats, include the mixin.  The name of the
+// mixin is in parenthesis in the sample for each level.
+//
+// Example: `@include h3;`
+//
+// @mixin super - our highest size
+// @mixin h1 - Article header
+// @mixin h2 - Section header
+// @mixin h3 - Subsection header
+// @mixin h4 - Because why not?
+// @mixin body - Default text size
+// @mixin small - Smaller size for things we want to de-emphasize.  Or the nav, apparently.
+//
+// Styleguide 1.4
+@mixin super () {
+  font-size: pxToRem(110);
+  line-height: $vr * 8;
+}
+@mixin h1 () {
+  font-size: pxToRem(82);
+  line-height: $vr * 6;
+}
+@mixin h2 () {
+  font-size: pxToRem(49);
+  line-height: $vr * 4;
+}
+@mixin h3 () {
+  font-size: pxToRem(30);
+  line-height: $vr * 3;
+}
+@mixin h4 () {
+  font-size: pxToRem(24);
+  line-height: $vr * 2;
+}
+@mixin body () {
+  font-size: pxToRem(18);
+  line-height: $vr * 2;
+}
+@mixin small () {
+  font-size: pxToRem(13);
+  line-height: $vr;
+}

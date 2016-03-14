@@ -1,0 +1,17 @@
+
+
+.parallax-layer {
+  position: fixed;
+  top:-3vh;
+  left: 0;
+  height: 106vh;
+  width: 100vw;
+  backface-visibility: hidden;
+}
+
+.parallax-box {
+  position: absolute;
+  top: 0; right: 0; bottom: 0; left: 0;
+  clip: rect(0 auto auto 0);
+  z-index: -1;
+}

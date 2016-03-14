@@ -1,0 +1,44 @@
+
+/**
+ *  Float Label
+ */
+
+.float-label-input {
+
+  position: relative;
+  min-height: $vr * 3;
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0.2em 0.5em;
+    padding-top: 1.6em;
+    color: $accent;
+
+    &:focus + label,
+    &:valid + label {
+      top: 0.5em;
+      font-size: .6875em;
+      letter-spacing: 0.5px;
+      transform: none;
+    }
+
+  }
+
+  label {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: $wr / 2;
+    font-size: inherit;
+    font-weight: 100;
+    pointer-events: none;
+    transition: all 0.18s ease-in-out;
+    color: $accent;
+    line-height: 1;
+  }
+
+}

@@ -1,0 +1,11 @@
+// Global Body Styles
+//
+
+body {
+  @include font-primary;
+  @include body;
+  margin: 0;
+  padding: 0;
+  background: $medium;
+  color: $white;
+}

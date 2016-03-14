@@ -1,0 +1,52 @@
+// Toggle
+//
+// Really just a glorified checkbox.
+//
+// Markup:
+//   <label class="toggle__label" for="toggle-sample">Toggle</label>
+//   <label class="toggle" for="toggle-sample">
+//     <input type="checkbox" id="toggle-sample">
+//     <span class="toggle__dot"></span>
+//   </label>
+//
+// Styleguide 3.8
+$height: $vr * 1.5;
+$width: $wr * 3;
+.toggle {
+  display: inline-block;
+  position: relative;
+  height: $height;
+  width: $width;
+  border-radius: $vr * .75;
+  background: rgba($medium, .5);
+  cursor: pointer;
+  vertical-align: middle;
+
+  input {
+    @extend .visuallyhidden;
+  }
+
+  // .light & {
+  //   background: rgba(black, .15);
+  // }
+}
+.toggle__dot {
+  display: block;
+  position: absolute;
+  top: 2px; left: 2px;
+  width: $height - pxToRem(4);
+  height: $height - pxToRem(4);
+  border-radius: 50%;
+  background: $accent;
+  transition: all $transition-time $ease-soft;
+
+  :checked + & {
+    //background: $navy;
+    left: $width - $height + pxToRem(2);
+  }
+}
+.toggle__label {
+  @include small;
+  line-height: $height;
+  margin-right: $wr * .5;
+}

@@ -1,0 +1,15 @@
+// Super Header
+//
+// Markup:
+//   <h1 class="super">Extra Large Header</h1>
+//
+// Styleguide 3.1
+.super {
+  @include super;
+  @include font-secondary;
+  margin: 0 auto $vr;
+}
+
+.super__tm {
+  margin-left: $wr * -.8;
+}

@@ -1,0 +1,10 @@
+.clear-fix, %clear-fix {
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+}
+@mixin clear-fix () {
+  @extend %clear-fix;
+}

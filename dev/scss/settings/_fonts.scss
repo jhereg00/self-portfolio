@@ -1,0 +1,27 @@
+// Fonts
+//
+// We have both variables and mixins. The mixins include the proper letter spacing.
+//
+// $font-primary - main display font. Oxygen.
+// $font-secondary - alternate font, for headlines. Poppins.
+// @mixin font-primary - main display font and its letter spacing.
+// @mixin font-secondary - alternate font and its letter spacing.
+//
+// Styleguide 1.2
+
+// google font
+@import url(https://fonts.googleapis.com/css?family=Poppins:600|Oxygen:400,700);
+
+$font-primary: "Oxygen","Helvetica","Arial",sans-serif;
+$font-secondary: "Poppins",sans-serif;
+
+@mixin font-primary {
+  font-family: $font-primary;
+  letter-spacing: .025em;
+}
+@mixin font-secondary {
+  font-family: $font-secondary;
+  letter-spacing: .01em;
+  -webkit-font-smoothing: antialiased;
+  font-weight: normal;
+}

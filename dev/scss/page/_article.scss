@@ -1,0 +1,76 @@
+$width-margin: $wr * 10;
+$outer-drop-shadow: 6px 8px 0 $dark;
+$magic-angle-calc: calc((100vw - #{2 * $width-margin}) / 12);
+$magic-angle-calc-small: calc((75vw - #{2 * $width-margin}) / 12);
+
+.article {
+  position: relative;
+  color: $black;
+  padding-top: 50vh;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50vh; bottom: 0; left: -2rem;
+    width: $width-margin + 3;
+    background: $off-white;
+    box-shadow: $outer-drop-shadow;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    top: calc(50vh + #{$vr * 3}); bottom: 0; right: 0;
+    left: calc(100% - #{$width-margin + $wr});
+    background: $off-white;
+    box-shadow: $outer-drop-shadow;
+    clip-path: polygon($magic-angle-calc 0, 100% 0, 100% 100%, 0 100%, 0 $magic-angle-calc);
+  }
+}
+.article__content {
+  position: relative;
+  margin: 0 $width-margin + $wr;
+  padding: $vr * 3 0;
+  @extend %clear-fix;
+  filter: drop-shadow($outer-drop-shadow);
+
+  h1,h2,h3,h4,h5 {
+    color: $medium;
+    text-shadow: 3px 3px 0 $dark;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0; left: 0;
+    right: 1 / 12 * 100%;
+    background: $off-white;
+    clip-path: polygon(0 0, #{10/11*100%} 0, 100% $magic-angle-calc, 100% 100%, 0 100%);
+  }
+
+  > * {
+    // set default width of inner modules, to be overridden as needed
+    @include colspan (6);
+    @include colpush (3);
+    position: relative;
+  }
+
+  > h1:first-child {
+    //margin: -15 * $vr -1 * $wr;
+    @include colspan (6,12,0);
+    @include colpush (4,12,0);
+    position: relative;
+    margin-top: -9 * $vr;
+    min-height: $vr * 8;
+    padding: $vr * 2 $wr 0;
+    background: $off-white linear-gradient(to bottom, $white $vr * 6, transparent 100%);
+    &::after {
+      content: '';
+      position: absolute;
+      top: $vr * 6; right: -3px; bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, $dark, transparent);
+      opacity: .25;
+      clip-path: polygon(0 0, 100% 0, 0 100%);
+    }
+  }
+}

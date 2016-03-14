@@ -1,0 +1,16 @@
+// pxToRem function
+//
+// Converts pixels to REMs so we can keep our units consistent.  Assumes 1rem is 16px (default for most browsers).
+//
+// ```
+// pxToRem($px[,$baseRem]);
+// ```
+//
+// $px - unitless integer to convert to rems
+// $baseRem - pixels to count as one rem. Defaults to 16
+//
+// Styleguide I.1.1
+@function pxToRem ($px, $baseRem: 16) {
+  // converts pixels to rems based on the $base-rem variable
+  @return 1rem * stripUnits($px) / $baseRem;
+}

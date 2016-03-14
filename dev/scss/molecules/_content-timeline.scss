@@ -1,0 +1,67 @@
+// Timeline Content
+//
+// Single column version of content-divided.  Irrelevant if it's an ol or ul.
+//
+// Markup:
+//   <ol class="content-timeline {{ modifier }}">
+//     <li class="content-timeline__item">
+//       <h3>Fluff this Cloud</h3>
+//       <p>The man who does the best job is the one who is happy at his job. If you do too much it's going to lose its effectiveness. Decide where your cloud lives. Maybe he lives right in here. A thin paint will stick to a thick paint.</p>
+//     </li>
+//     <li class="content-timeline__item">
+//       <p>I sincerely wish for you every possible joy life could bring. Painting should do one thing. It should put happiness in your heart. Every time you practice, you learn more.</p>
+//     </li>
+//     <li class="content-timeline__item">
+//       <p>I sincerely wish for you every possible joy life could bring. Painting should do one thing. It should put happiness in your heart. Every time you practice, you learn more.</p>
+//     </li>
+//   </ol>
+//
+// Styleguide 4.1.1
+.content-timeline {
+  list-style-type: none;
+  margin: $vr * 6 auto;
+  padding: 0;
+}
+.content-timeline__item {
+  display: block;
+  margin: 0;
+  position: relative;
+  padding-left: $wr * 2;
+  padding-bottom: $wr * 2;
+
+  &::before {
+    // dot (or icon in other versions)
+    content: '';
+    display: block;
+    position: absolute;
+    top: $vr;
+    //left: 0;
+    left: $wr / 2;
+    width: $vr; height: $vr;
+    margin: $vr * -.5;
+    box-sizing: border-box;
+    border: 2px solid $white;
+    border-radius: 50%;
+  }
+  &::after {
+    // line
+    content: '';
+    display: block;
+    position: absolute;
+    top: $vr * 2;
+    //left: 0;
+    left: $wr / 2;
+    bottom: 0;
+    width: 1px;
+    background: $white;
+  }
+
+  // fade out line
+  &:last-child::after {
+    background: linear-gradient(to top, transparent, $white #{$vr * 10});
+  }
+
+  > :first-child {
+    margin-top: 0;
+  }
+}

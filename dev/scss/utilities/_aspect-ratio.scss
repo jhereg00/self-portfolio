@@ -1,0 +1,17 @@
+// Aspect Ratio Function
+//
+// Gets padding for correct aspect ratio, and sets height to 0.
+//
+// ```
+// aspect-ratio($width, $height)
+// ```
+//
+// $width - comparative width of the ratio. The 'x' in x:y
+// $height - comparative height of the ratio. The 'y' in x:y
+//
+// Styleguide I.2.2
+@mixin aspect-ratio($width, $height) {
+  position: relative;
+  padding: ($height / $width) * 100% 0 0 0;
+  height: 0;
+}

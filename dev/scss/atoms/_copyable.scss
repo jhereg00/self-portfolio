@@ -1,0 +1,30 @@
+// Copyable
+//
+// Markup:
+//   <span data-copy="Click To Copy">Click To Copy</span>
+//
+// Styleguide 3.12
+.copyable-enabled {
+  [data-copy] {
+    transition: background $transition-time;
+    cursor: copy;
+  }
+  span[data-copy] {
+    background: linear-gradient(to right, $light, $light 33.3333%, transparent 33.3333%) left bottom repeat-x;
+    background-size: 3px 1px;
+    &:hover {
+      background: linear-gradient(to right, $white, $white 33.3333%, transparent 33.3333%) left bottom repeat-x;
+      background-size: 3px 1px;
+    }
+  }
+}
+.copyable-indicator {
+  display: block;
+  @include font-secondary;
+  @include h3;
+  position: absolute;
+  margin: -1 * $vr 0 0 $wr * 2;
+  z-index: 20;
+  opacity: 0;
+  animation: fade-and-slide-up 1s forwards;
+}

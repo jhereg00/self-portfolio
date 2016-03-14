@@ -1,0 +1,25 @@
+// Audience Detail
+//
+// A fairly unique atom to show key info about audience examples.  The inner
+// content can really be anything, but is expected to start with a .subhead.
+//
+// Markup:
+//   <div class="audience-detail">
+//     <p class="subhead">Ages</p>
+//     <p><span class="h3">36</span><span> to </span><span class="h3">49</span></p>
+//   </div>
+//   <div class="audience-detail">
+//     <p class="subhead">Lots of travel</p>
+//     <p><span>both </span><span class="h3">business</span><span> and </span><span class="h3">leisure</span></p>
+//   </div>
+//
+// Styleguide 4.8
+.audience-detail {
+  margin: $vr * 3 0;
+  p {
+    margin: 0;
+    span {
+      margin-right: $wr / 2;
+    }
+  }
+}

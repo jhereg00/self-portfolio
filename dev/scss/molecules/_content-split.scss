@@ -1,0 +1,64 @@
+// Split Content
+//
+// Content split in half on larger than the small breakpoint.
+// Each side is optional.
+//
+// Markup:
+//   <div class="content-split {{ modifier }}">
+//     <div class="content-split__left">
+//       <h3>Fluff this Cloud</h3>
+//       <p>The man who does the best job is the one who is happy at his job. If you do too much it's going to lose its effectiveness. Decide where your cloud lives. Maybe he lives right in here. A thin paint will stick to a thick paint.</p>
+//     </div>
+//     <div class="content-split__right">
+//       <p>I sincerely wish for you every possible joy life could bring. Painting should do one thing. It should put happiness in your heart. Every time you practice, you learn more.</p>
+//     </div>
+//   </div>
+//   <div class="content-split {{ modifier }}">
+//     <div class="content-split__right">
+//       <p>I sincerely wish for you every possible joy life could bring. Painting should do one thing. It should put happiness in your heart. Every time you practice, you learn more.</p>
+//     </div>
+//   </div>
+//   <div class="content-split {{ modifier }}">
+//     <div class="content-split__left">
+//       <h3>Fluff this Cloud</h3>
+//       <p>The man who does the best job is the one who is happy at his job. If you do too much it's going to lose its effectiveness. Decide where your cloud lives. Maybe he lives right in here. A thin paint will stick to a thick paint.</p>
+//     </div>
+//   </div>
+//
+// Styleguide 4.4
+$gutter: $wr * 2;
+.content-split {
+  @include subgridContainer ($gutter);
+  position: relative;
+  margin-top: $vr * 6;
+  margin-bottom: $vr * 6;
+}
+.content-split__left, .content-split__right {
+  @include colspan (12,12,$gutter);
+
+  @include mq ($bp-medium) {
+    @include colspan (1,2,$gutter);
+    &.small {
+      @include colspan (4,10,$gutter);
+    }
+  }
+
+  @include mq ($bp-medium) {
+    > :first-child {
+      margin-top: 0;
+    }
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+// .content-split__left {
+//   @include mq ($bp-large) {
+//     text-align: right;
+//   }
+// }
+.content-split__right {
+  @include mq ($bp-medium) {
+    float: right;
+  }
+}

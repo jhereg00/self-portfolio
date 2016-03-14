@@ -1,0 +1,36 @@
+// Main Header / Logo Container
+//
+// Where the logo goes...
+.logo-container {
+  padding: $vr $wr * 2;
+  height: $vr * 3;
+  text-align: center;
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  z-index: 8675300;
+
+  .logo {
+    position: absolute;
+    top: $vr; left: 50%;
+    transform: translateX(-50%);
+  }
+
+  @include mq ($bp-medium) {
+    $one-col-width: calc(#{$wr * 1.5} + #{1 / 12 * 100%});
+    padding: $vr * 2 $one-col-width;
+    // text-align: left;
+    // .index & {
+    //   text-align: center;
+    // }
+    .logo {
+      top: $vr * 2;
+      left: $one-col-width;
+      transform: none;
+      transition: all 1s $ease-soft;
+      .index & {
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    }
+  }
+}

@@ -1,0 +1,58 @@
+// Section Header
+//
+// Intended to hold subnav.  And maybe a small header.
+//
+// Markup:
+//   <header class="header-section">
+//     <div class="header-section__left">
+//       <p class="h3 header-section__headline">Choose A Tab:</p>
+//       <nav class="tabbing__nav">
+//         <span class="tabbing__active-indicator"></span>
+//         <ul class="tabbing__list">
+//           <li class="tabbing__item"><a href="#logo-tab-1" class="tabbing__link active">Show Tab 1</a></li>
+//           <li class="tabbing__item"><a href="#logo-tab-2" class="tabbing__link">Show Tab 2</a></li>
+//           <li class="tabbing__item"><a href="#logo-tab-3" class="tabbing__link">Show Tab 3</a></li>
+//           <li class="tabbing__item"><a href="#logo-tab-4" class="tabbing__link">Show Tab 4</a></li>
+//         </ul>
+//       </nav>
+//     </div>
+//     <div class="header-section__right">
+//       <div class="header-section__toggle">
+//         <label for="brand-logos-bg-toggle" class="toggle__label">See Dark / Light</label>
+//         <label class="toggle toggle-bg" for="brand-logos-bg-toggle">
+//           <input type="checkbox" id="brand-logos-bg-toggle">
+//           <span class="toggle__dot"></span>
+//         </label>
+//       </div>
+//     </div>
+//   </header>
+//
+// Styleguide 4.7
+.header-section {
+  clear: both;
+  position: relative;
+  margin: $vr * 8 auto $vr * 3;
+  @include subgridContainer;
+}
+.header-section__main {
+  @include colspan (12);
+  @include mq ($bp-large) {
+    @include colspan (6,10);
+  }
+}
+.header-section__headline {
+  @include body;
+  font-weight: bold;
+  margin: 0;
+}
+.header-section__toggle {
+  @include colspan (12);
+  @include small;
+  @include font-tertiary;
+  @include mq ($bp-large) {
+    @include colspan (4,10);
+    position: absolute;
+    right: 0; bottom: $vr * 1.75; // bottom number is specific to this side being a toggle
+    text-align: right;
+  }
+}

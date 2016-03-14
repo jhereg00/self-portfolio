@@ -1,0 +1,53 @@
+// Header Card
+//
+// A card with a title and optional tab.
+//
+// Markup:
+//   <header class="header-card">
+//     <h4 class="header-card__text">Meet Elyssa</h4>
+//   </header>
+//   <header class="header-card has-tab">
+//     <div class="header-card__tab">Responsible Travelers</div>
+//     <h4 class="header-card__text">Meet Elyssa</h4>
+//   </header>
+//
+// Styleguide 3.9
+$width: $wr * 14;
+$height: $vr * 10;
+.header-card {
+  display: block;
+  position: relative;
+  box-sizing: border-box;
+  margin: $vr auto $vr * 3 $wr * 3;
+  padding: $vr * 2 $wr * 2;
+  width: $width;
+  height: $height;
+  background: white;
+  color: $black;
+  text-transform: uppercase;
+  filter: drop-shadow(0 #{$vr / 4} #{$vr / 2} rgba(black, .5));
+
+  &.has-tab {
+    margin-left: $wr * 7;
+  }
+}
+.header-card__tab {
+  position: absolute;
+  top: 0; right: 100%;
+  padding: $wr $vr;
+  width: $height;
+  background: mix($light, white, 20%);
+  text-align: center;
+  transform-origin: 100% 100%;
+  transform: translateY(-100%) rotate(-90deg);
+  @include small;
+  color: $medium;
+}
+.header-card__text {
+  position: absolute;
+  top: 50%;
+  left: $wr * 2;
+  right: $wr * 2;
+  margin: 0;
+  transform: translateY(-50%);
+}

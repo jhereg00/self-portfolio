@@ -1,0 +1,22 @@
+// Horizontal Rule
+//
+// Markup:
+//   <hr>
+//
+// Styleguide 2.3
+hr {
+  // @include aspect-ratio(8,1);
+  display: block;
+  width: auto;
+  margin: $vr * 3 $wr * 3;
+  border: none;
+  // background: url('../images/swoosh-small.svg') center center no-repeat;
+  // background-size: contain;
+
+  height: 1px;
+  background: $white;
+
+  @include mq ($bp-medium) {
+    margin: $vr * 3 $wr * 6;
+  }
+}

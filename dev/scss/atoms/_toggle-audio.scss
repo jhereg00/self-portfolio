@@ -1,0 +1,31 @@
+// Audio Toggler
+//
+// Button to press in order to toggle audio on/off
+//
+// .off - off state (which is actually how it starts)
+//
+// Markup:
+//   <a class="toggle-audio {{ modifier }}"></a>
+//
+// Styleguide 3.5
+.toggle-audio {
+  display: block;
+  position: fixed;
+  top: 0; right: $wr * 2;
+  z-index: 8675309;
+  padding: $vr $wr;
+  background: rgba($black,.5);
+  color: $white;
+  line-height: 1;
+  cursor: pointer;
+
+  &::before {
+    content: 'Turn Audio Off';
+  }
+
+  &.off {
+    &::before {
+      content: 'Turn Audio On';
+    }
+  }
+}

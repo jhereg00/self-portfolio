@@ -1,0 +1,37 @@
+
+$modal-background-color: $orange;
+
+%outline {
+  background: transparent;
+  border: 1px solid white;
+  color: white;
+  outline: none;
+}
+
+.nav-main__modal {
+  
+  label {
+    color: white;
+  }
+
+  button#modal-close {
+    @extend %outline;
+    background: $modal-background-color url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 32.1 32.2" enable-background="new 0 0 32.1 32.2" xml:space="preserve"><path fill="#FFFFFF" d="M11.7,14.9l-1.1,1.2l1.1,1.2l6.1,6.3l2.3-2.4l-4.9-5.1l4.9-5.1l-2.3-2.4L11.7,14.9z"/></svg>') no-repeat 50% 50%;
+    cursor: pointer;
+    position: absolute;
+    top: 1em;
+    right: 1em;
+    padding: 0.7em 1em;
+    width: 2em;
+    height: 2em;
+  }
+
+  h4 {
+    margin-top: 50vh;
+  }
+
+  .login-submit {
+    background-color: $modal-background-color;
+  }
+
+}

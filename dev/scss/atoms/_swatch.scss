@@ -1,0 +1,53 @@
+// Color Swatch
+//
+// .blue - 1st color
+// .navy - 2nd color
+// .orange - 3rd color
+//
+// Markup:
+//   <div class="swatch">
+//     <div class="swatch__color {{modifier}}" data-copy="#7BAED4"></div>
+//     <div class="swatch__description">
+//       <strong>Blue</strong><br>
+//       <span data-copy="Pantone 542C">Pantone 542C</span><br>
+//       <span data-copy="Pantone 542U">Pantone 542U</span><br>
+//       CMYK: 64 / 22 / 8 / 0<br>
+//       RGB: 123 / 174 / 212<br>
+//       Hex: <span data-copy="#7BAED4">#7BAED4</span>
+//     </div>
+//   </div>
+//
+// Styleguide 3.11
+.swatch {
+  @include subgridContainer;
+  margin-top: $vr * 3;
+  margin-bottom: $vr * 3;
+}
+.swatch__color {
+  @include colspan (8);
+  @include colpush (2);
+  padding-top: calc(#{8 / 12 * 100%} - #{$wr * 2});
+  margin-bottom: $vr;
+  border-radius: 50%;
+  @include mq ($bp-medium) {
+    @include colspan (4);
+    padding-top: calc(#{4 / 12 * 100%} - #{$wr * 2});
+    margin-top: $vr / 2;
+  }
+
+  &.navy {
+    background: $navy;
+  }
+  &.blue {
+    background: $accent;
+  }
+  &.orange {
+    background: $orange;
+  }
+}
+.swatch__description {
+  @include colspan (12);
+  @include mq ($bp-medium) {
+    @include colspan (8);
+  }
+}

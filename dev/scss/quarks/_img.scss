@@ -1,0 +1,10 @@
+img {
+  display: inline-block;
+  max-width: 100%;
+  border: none;
+
+  .section-main__content & {
+    display: block;
+    margin: $vr * 3 auto;
+  }
+}

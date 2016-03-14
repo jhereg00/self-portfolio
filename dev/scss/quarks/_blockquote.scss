@@ -1,0 +1,14 @@
+// Blockquote
+//
+// Really just a reset
+//
+// Markup:
+//   <blockquote>
+//     <p>"Some content that's a quote."</p>
+//   </blockquote>
+//
+// Styleguide 2.4
+blockquote {
+  margin: $vr 0;
+  padding: 0;
+}

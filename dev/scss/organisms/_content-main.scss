@@ -1,0 +1,36 @@
+.content-main {
+  position: relative;
+  // padding-left: $wr;
+  // padding-right: $wr;
+
+  @include mq ($bp-medium) {
+    padding: 0;
+  }
+  .nav-main + & {
+    @include mq ($bp-medium) {
+      margin-left: $nav-width;
+    }
+  }
+
+  @include mq-lt ($bp-medium) {
+    transition: transform $transition-time $ease-soft;
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; bottom: 0; left: 0;
+      z-index: 8675309;
+      background: black;
+      opacity: 0;
+      transition: opacity $transition-time linear;
+      pointer-events: none;
+    }
+
+    // open nav
+    .nav-open & {
+      transform: translateX($nav-width);
+      &::before {
+        opacity: .33;
+      }
+    }
+  }
+}

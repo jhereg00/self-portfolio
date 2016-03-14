@@ -1,0 +1,15 @@
+// pxToEm function
+//
+// Converts pixels to EMs so we can keep our units consistent.  Assumes 1em is 16px, or you can pass a different base.
+//
+// ```
+// pxToEm($px[,$base]);
+// ```
+//
+// $px - unitless integer to convert to rems
+// $base - pixels to count as one em. Defaults to 16
+//
+// Styleguide I.1.4
+@function pxToEm ($px, $base: 16) {
+  @return 1em * stripUnits($px) / $base;
+}

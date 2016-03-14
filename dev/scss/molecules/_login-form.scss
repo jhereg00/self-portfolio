@@ -1,0 +1,121 @@
+// Base Login Form
+//
+// The standard login form
+//
+// Markup:
+// <form class="login-form">
+//   <div class="float-label-input">
+//     <input type="password" id="passwordInput" name="pwd" required/>
+//     <label for="passwordInput">Password</label>
+//   </div>
+//   <button class="login-submit"></button>
+// </form>
+//
+// Styleguide 4.3
+
+.login-form {
+
+  position: relative;
+  margin: $vr auto;
+
+  .float-label-input {
+    margin-bottom: 1em;
+  }
+
+  input[type="password"] {
+    background: transparent;
+    border: 1px solid white;
+    color: white;
+    outline: none;
+    width: calc(100% - #{$wr * 3 - pxToRem(1)});
+    height: $vr * 3;
+    padding-top: 1.4em;
+    padding-bottom: 0.5em;
+    display: block;
+    box-sizing: border-box;
+    font-size: 1rem;
+  }
+
+  &.login-failed {
+    input {
+      animation: flash-invalid 1s;
+    }
+    .error-message {
+      animation: fade-and-slide-down 1s forwards;
+    }
+  }
+  .error-message {
+    @include font-secondary;
+    @include h3;
+    position: absolute;
+    top: 10%;
+    //right: $wr * 4;
+    left: $wr;
+    z-index: 20;
+    opacity: 0;
+  }
+
+  &.loading {
+    &::before {
+      content: '';
+      position: absolute;
+      top: 1px; right: 1px; bottom: 1px; left: 1px;
+      background: rgba($dark,.2);
+      z-index: 2;
+    }
+    &::after {
+      content: '';
+      height: $vr;
+      width: $wr;
+      position: absolute;
+      margin-left: $wr * -.5;
+      top: 50%;
+      left: 50%;
+      z-index: 25;
+      transform: translate(-50%,-50%);
+      background: $accent;
+      border-radius: 50%;
+      // background: radial-gradient(to right, $navy, $navy 100%);
+      // background-repeat: no-repeat;
+      // background-size: $wr 100%;
+      animation: slide 1s infinite $ease-soft;
+    }
+  }
+}
+.login-submit {
+  border: 1px solid white;
+  color: white;
+  outline: none;
+  position: absolute;
+  top:0;
+  right:0;
+  width: $wr * 3;
+  height: $vr * 3;
+  z-index: 5;
+  cursor: pointer;
+  background: transparent;
+  //background: transparent url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 32.1 32.2" enable-background="new 0 0 32.1 32.2" xml:space="preserve"><path fill="#FFFFFF" d="M17,16.7l0.5-0.6L17,15.5l-2.9-3L13,13.7l2.4,2.4L13,18.6l1.1,1.1L17,16.7z"/></svg>') no-repeat 50% 50%;
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 0; height: 0;
+    background: $accent;
+    transition: all $transition-time / 2 ease-out;
+  }
+  &:hover::before {
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    transition-timing-function: ease-in;
+  }
+  &:active::before {
+    background: $accent-dark;
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: transparent url('../images/arrow-right.svg') center center no-repeat;
+  }
+}

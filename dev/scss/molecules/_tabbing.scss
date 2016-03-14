@@ -1,0 +1,130 @@
+// this file contains both the styles for tabs and tab buttons
+
+// Tabbing
+//
+// This molecule contains both the styles for tabs and tab buttons
+//
+// Markup:
+//   <nav class="tabbing__nav">
+//     <span class="tabbing__active-indicator"></span>
+//     <ul class="tabbing__list">
+//       <li class="tabbing__item"><a href="#tab1" class="tabbing__link active">Show Tab 1</a></li>
+//       <li class="tabbing__item"><a href="#tab2" class="tabbing__link">Show Tab 2</a></li>
+//       <li class="tabbing__item"><a href="#tab3" class="tabbing__link">Show Tab 3</a></li>
+//       <li class="tabbing__item"><a href="#tab4" class="tabbing__link">Show Tab 4</a></li>
+//     </ul>
+//   </nav>
+//   <div class="tabbing__content">
+//     <div class="tabbing__tab active" id="tab1">
+//       <h1>Tab 1</h1>
+//       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis magnam vel dicta sint, tempora incidunt obcaecati eius et, voluptate consequuntur reprehenderit temporibus qui, blanditiis molestias natus. Iste dolorum, impedit ad!</p>
+//     </div>
+//     <div class="tabbing__tab" id="tab2">
+//       <h1>Tab 2</h1>
+//       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis magnam vel dicta sint, tempora incidunt obcaecati eius et, voluptate consequuntur reprehenderit temporibus qui, blanditiis molestias natus. Iste dolorum, impedit ad!</p>
+//       <p class="h3">Making this one taller for testing different size tabs.</p>
+//     </div>
+//     <div class="tabbing__tab" id="tab3">
+//       <div class="content-split">
+//         <div class="content-split__left">
+//           <img src="http://placehold.it/400x200">
+//         </div>
+//         <div class="content-split__right">
+//           <h1>Tab 3</h1>
+//           <p class="subhead">Split Content for Testing</p>
+//           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis magnam vel dicta sint, tempora incidunt obcaecati eius et, voluptate consequuntur reprehenderit temporibus qui, blanditiis molestias natus. Iste dolorum, impedit ad!</p>
+//         </div>
+//       </div>
+//     </div>
+//     <div class="tabbing__tab" id="tab4">
+//       <h1>Tab 4</h1>
+//       <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Corporis magnam vel dicta sint, tempora incidunt obcaecati eius et, voluptate consequuntur reprehenderit temporibus qui, blanditiis molestias natus. Iste dolorum, impedit ad!</p>
+//     </div>
+//   </div>
+//
+// Styleguide 4.6
+
+.tabbing__nav {
+  display: none;
+
+  @include mq ($bp-medium) {
+    display: block;
+    position: relative;
+    padding: $vr $wr $vr 0;
+    margin: $vr auto;
+    border-top: 1px solid rgba($white,.5);
+    @include small;
+    @include font-tertiary;
+
+    .light & {
+      border-top-color: rgba($black,.3);
+    }
+  }
+}
+.tabbing__list {
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+.tabbing__item {
+  display: inline;
+  margin-right: $wr;
+}
+.tabbing__link {
+  font-weight: normal;
+  color: inherit;
+  opacity: .7;
+  transition: opacity $transition-time linear;
+  .light & {
+    opacity: .5;
+  }
+  &:hover, &.active {
+    color: inherit;
+    opacity: 1;
+  }
+}
+.tabbing__active-indicator {
+  display: block;
+  position: absolute;
+  top: -1px; left: 0;
+  width: $wr * 3;
+  height: 3px;
+  background: $accent;
+  transition: left $transition-time $ease-soft;
+
+  .light & {
+    background: $navy;
+  }
+}
+
+.tabbing__content {
+  position: relative;
+}
+.tabbing__tab {
+  @include mq ($bp-medium) {
+    position: absolute;
+    top: 0; left: 0;
+    transform: translateX(25%);
+    opacity: 0;
+    transition: transform $transition-time ease-in, opacity $transition-time linear;
+    pointer-events: none;
+
+    [class*='__left'] {
+      transition: transform $transition-time ease-in;
+      transform: translateX(-100%);
+    }
+
+    &.active {
+      position: relative;
+      transition-timing-function: ease-out;
+      transform: none;
+      opacity: 1;
+      pointer-events: auto;
+
+      [class*='__left'] {
+        transition-timing-function: ease-out;
+        transform: none;
+      }
+    }
+  }
+}
