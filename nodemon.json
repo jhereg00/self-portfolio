@@ -1,0 +1,6 @@
+{
+  "watch": [
+    "app",
+    "index.js"
+  ]
+}

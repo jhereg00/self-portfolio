@@ -1,4 +1,4 @@
-var bps = [600,860];
+var bps = [720,960,1200,1680];
 
 var windowSize = require('lib/getWindowSize');
 

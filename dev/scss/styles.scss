@@ -81,8 +81,9 @@
 // >\- http://www.smashingmagazine.com/2013/08/other-interface-atomic-design-sass/
 //
 // Styleguide 3.0
-// @import
-//   ;
+@import
+  'atoms/canvas-halftone'
+  ;
 
 // Molecules
 //
@@ -92,8 +93,9 @@
 // >\- http://www.smashingmagazine.com/2013/08/other-interface-atomic-design-sass/
 //
 // Styleguide 4.0
-// @import
-//   ;
+@import
+  'molecules/halftone'
+  ;
 
 
 // Organisms
@@ -117,19 +119,19 @@
 
 
 .dev-grid {
-  position: fixed;
-  top: 0; right: $wr * 6; bottom: 0; left: $wr * 6;
+  position: absolute;
+  top: 0; right: -1 * $wr; bottom: 0; left: -1 * $wr;
   pointer-events: none;
   @include gridContainer;
 }
 .dev-grid__column {
-  background: rgba(red,.15);
+  background: rgba(red,.05);
   @include colspan (1);
   height: 100%;
-  @include mq-lt ($bp-medium) {
-    @include colspan (1,6);
-    &:nth-child(7), &:nth-child(7) ~ & {
-      display: none;
-    }
-  }
+  // @include mq-lt ($bp-medium) {
+  //   @include colspan (1,6);
+  //   &:nth-child(7), &:nth-child(7) ~ & {
+  //     display: none;
+  //   }
+  // }
 }

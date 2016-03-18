@@ -16,7 +16,7 @@ function browserifyScript (fileName) {
   var b = browserify({
     entries: './'+fileName,
     debug: true,
-    basedir: './dev/js-src/',
+    basedir: './dev/js/',
     paths: ['./node_modules','./']
   });
 
@@ -50,7 +50,7 @@ module.exports = function (cb) {
     }
   }
 
-  fs.readdir('./dev/js-src/',function (err, data) {
+  fs.readdir('./dev/js/',function (err, data) {
     if (err)
       return cb();
 

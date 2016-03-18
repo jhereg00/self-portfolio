@@ -5,3 +5,4 @@
  *  parts of the library we need.
  */
 // objects
+require('objects/article');

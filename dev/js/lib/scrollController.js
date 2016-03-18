@@ -11,7 +11,7 @@ var getPageOffset = require('lib/getPageOffset'),
     ;
 
 
-var Parallax = function Parallax (element) {
+var Parallax = function Parallax (element, onScroll) {
   if (!this instanceof Parallax)
     return new Parallax(element);
 
@@ -20,14 +20,26 @@ var Parallax = function Parallax (element) {
 
   // get measurements immediately
   this.measure();
-  loop.addResizeFunction(function measureParallax () {
+  if (onScroll)
+    onScroll(_this.getPercentage());
+
+  // listeners
+  this.onResize = function measureParallax () {
     _this.measure();
-  });
+  }
+  if (onScroll) {
+    this.onScroll = function scrollParallax () {
+      onScroll(_this.getPercentage());
+    }
+  }
+
+  // start 'er up
+  this.init();
 }
 Parallax.prototype = {
   measure: function () {
     var po = getPageOffset(this.element);
-    this.top = Math.max(po.top - windowSize.height(), 0);
+    this.top = po.top - windowSize.height();
     this.bottom = po.top + this.element.offsetHeight;
     this.height = this.bottom - this.top;
   },
@@ -35,6 +47,16 @@ Parallax.prototype = {
     var scrollY = getScrollPos();
     var perc = (scrollY - this.top) / (this.height);
     return perc;
+  },
+  init: function () {
+    loop.addResizeFunction(this.onResize);
+    if (this.onScroll)
+      loop.addScrollFunction(this.onScroll);
+  },
+  destroy: function () {
+    loop.removeFunction(this.onResize);
+    if (this.onScroll)
+      loop.removeFunction(this.onScroll);
   }
 }
 

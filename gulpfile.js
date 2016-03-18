@@ -7,5 +7,5 @@ gulp.task('scripts',require('./gulp-tasks/scripts'));
 //gulp.task('kss',['sass','scripts'],require('./gulp-tasks/kss'));
 gulp.task('watch',function () {
   gulp.watch('dev/scss/**/*',['sass']);
-  gulp.watch('dev/js-src/**/*',['scripts']);
+  gulp.watch('dev/js/**/*',['scripts']);
 });

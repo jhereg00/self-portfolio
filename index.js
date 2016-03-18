@@ -17,7 +17,8 @@ var app = express();
 // establish nunjucks as the rendering engine
 var njEnv = nunjucks.configure(['app/views'], {
   express: app,
-  autoescape: false
+  autoescape: false,
+  watch: ENV === 'development'
 });
 // add useful dump function
 njEnv.addGlobal('dump', function (data) {

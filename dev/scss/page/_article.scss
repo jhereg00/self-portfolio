@@ -1,20 +1,24 @@
 $width-margin: $wr * 4;
 $width-margin-large: $wr * 8;
 $outer-drop-shadow: 6px 8px 0 $dark;
+$inner-drop-shadow: 3px 4px 0 $dark;
 $magic-angle-calc: calc((100vw - #{2 * $width-margin}) / 12);
 $magic-angle-calc-small: calc((75vw - #{2 * $width-margin}) / 12);
+$angle-offset-at-max-size: ($site-max-width - 2 * $width-margin) / 12;
+$header-height: 50vh;
 
 .article {
   position: relative;
   color: $black;
-  padding-top: 50vh;
+  padding-top: $header-height;
   max-width: pxToRem(1680);
-  margin: 0 auto;
+  margin: $vr * 40 auto;
 
   &::before {
     content: '';
     position: absolute;
-    top: 50vh; bottom: 0; left: -2rem;
+    top: $header-height; bottom: 0; left: -2rem;
+    z-index: 1;
     width: $width-margin + 3;
     background: $off-white;
     box-shadow: $outer-drop-shadow;
@@ -31,9 +35,9 @@ $magic-angle-calc-small: calc((75vw - #{2 * $width-margin}) / 12);
   }
   &::after {
     position: absolute;
-    top: calc(50vh + #{$vr * 3}); bottom: 0; right: 0;
+    top: calc(#{$header-height} + #{$vr * 3}); bottom: 0; right: 0;
     left: calc(100% - #{$width-margin + $wr});
-    z-index: 0;
+    z-index: 1;
     background: $off-white;
     box-shadow: $outer-drop-shadow;
     clip-path: polygon($magic-angle-calc 0, 100% 0, 100% 100%, 0 100%, 0 $magic-angle-calc);
@@ -41,18 +45,42 @@ $magic-angle-calc-small: calc((75vw - #{2 * $width-margin}) / 12);
       content: '';
     }
     @include mq ($bp-large) {
-      left: calc(100% - #{$width-margin-large + $wr});
+      left: calc(100% - #{$width-margin-large});
     }
     @include mq ($bp-max) {
       // infinite right at max size
       right: -999rem;
+      clip-path: polygon($angle-offset-at-max-size 0, 100% 0, 100% 100%, 0 100%, 0 $angle-offset-at-max-size);
     }
+  }
+}
+.article__header {
+  position: absolute;
+  top: 0; right: 0; left: 0;
+  height: calc(#{$header-height} + #{$vr * 7});
+  z-index: 0;
+  filter: drop-shadow($inner-drop-shadow);
+  background: $light center center no-repeat;
+  background-size: cover;
+
+  canvas {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  @include mq ($bp-max) {
+    right: auto; left: 50%;
+    width: 100vw;
+    transform: translateX(-50%);
   }
 }
 .article__inner {
   position: relative;
   margin: 0 $wr;
   padding: $vr * 3 0;
+  min-height: 100vh;
+  z-index: 2;
   @extend %clear-fix;
   filter: drop-shadow($outer-drop-shadow);
 
@@ -71,6 +99,9 @@ $magic-angle-calc-small: calc((75vw - #{2 * $width-margin}) / 12);
 
     @include mq ($bp-medium) {
       right: 1 / 12 * 100%;
+    }
+    @include mq ($bp-max) {
+      clip-path: polygon(0 0, #{10/11*100%} 0, 100% $angle-offset-at-max-size, 100% 100%, 0 100%);
     }
   }
 
@@ -118,8 +149,64 @@ $magic-angle-calc-small: calc((75vw - #{2 * $width-margin}) / 12);
     @include colspan (8);
     @include colpush (2);
   }
-  @include mq ($bp-medium) {
+  @include mq ($bp-large) {
     @include colspan (6);
     @include colpush (3);
+  }
+}
+
+%article-content-breakout-left, .breakout-left {
+  background: #ccc;
+  margin-left: -1 * $wr;
+  @include mq ($bp-small) {
+    margin-left: calc(#{-1 / 4 * 100%} - #{$wr / 2});
+  }
+  @include mq ($bp-medium) {
+    margin-left: calc(#{-1 / 8 * 100%} - #{$wr / 4});
+  }
+  @include mq ($bp-large) {
+    margin-left: calc(#{-1 / 6 * 100%} - #{$wr / 3});
+  }
+}
+%article-content-breakout-right, .breakout-right {
+  background: #ccc;
+  margin-right: -1 * $wr;
+  @include mq ($bp-small) {
+    margin-right: calc(#{-1 / 4 * 100%} - #{$wr / 2});
+  }
+  @include mq ($bp-medium) {
+    margin-right: 0;//calc(#{-1 / 8 * 100%} - #{$wr / 4});
+  }
+  @include mq ($bp-large) {
+    margin-right: calc(#{-1 / 6 * 100%} - #{$wr / 3});
+  }
+}
+
+// left and right floats
+.article__content {
+  .left {
+    @extend %article-content-breakout-left;
+    @include mq ($bp-small) {
+      float: left;
+      width: calc(#{5 / 8 * 100%} - #{$wr * 6 / 8});
+      margin-right: $wr * 2;
+    }
+    @include mq ($bp-large) {
+      width: calc(#{4 / 6 * 100%} - #{$wr * 2 / 3});
+    }
+  }
+  .right {
+    @extend %article-content-breakout-right;
+    @include mq ($bp-small) {
+      float: right;
+      width: calc(#{5 / 8 * 100%} - #{$wr * 6 / 8});
+      margin-left: $wr * 2;
+    }
+    @include mq ($bp-medium) {
+      width: calc(50% - #{$wr});
+    }
+    @include mq ($bp-large) {
+      width: calc(#{4 / 6 * 100%} - #{$wr * 2 / 3});
+    }
   }
 }
