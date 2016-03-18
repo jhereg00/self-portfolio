@@ -17,10 +17,27 @@
   'utilities/stripUnits',
   'utilities/pxToRem',
   'utilities/pxToEm',
+  'utilities/remToEm',
   'utilities/sqrt',
   'utilities/pow',
-  'utilities/aspect-ratio',
+  'utilities/aspect-ratio'
+  ;
 
+// Settings
+//
+// Global settings and variables. This defines global site wide things like
+// colors and fonts.
+//
+// Styleguide 1.0
+@import
+  'settings/spacing',
+  'settings/colors',
+  'settings/fonts',
+  'settings/transitions',
+  'settings/type-scale'
+  ;
+
+@import
 // Sass Mixins
 //
 // Helpful mixins for complex queries and properties.
@@ -35,21 +52,6 @@
   'utilities/visuallyhidden',
   'utilities/animations',
   'utilities/resets'
-  ;
-
-
-// Settings
-//
-// Global settings and variables. This defines global site wide things like
-// colors and fonts.
-//
-// Styleguide 1.0
-@import
-  'settings/spacing',
-  'settings/colors',
-  'settings/fonts',
-  'settings/transitions',
-  'settings/type-scale'
   ;
 
 // Quarks
@@ -116,7 +118,7 @@
 
 .dev-grid {
   position: fixed;
-  top: 0; right: $wr * 10; bottom: 0; left: $wr * 10;
+  top: 0; right: $wr * 6; bottom: 0; left: $wr * 6;
   pointer-events: none;
   @include gridContainer;
 }

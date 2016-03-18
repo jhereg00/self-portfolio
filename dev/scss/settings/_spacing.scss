@@ -12,6 +12,7 @@ $vr: pxToRem(15);
 $wr: $vr;
 
 // base grid width
+$site-max-width: pxToRem(1680);
 $max-width: 100%; //pxToRem(1170);
 @function n-col-width ($cols) {
   @return (($max-width / 12 - $wr) * $cols + $wr * ($cols - 1));

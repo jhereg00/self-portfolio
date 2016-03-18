@@ -40,7 +40,6 @@
 @mixin colspan ($span, $total: 12, $gutter: $wr * 2) {
   box-sizing: border-box;
   float: left;
-  min-height: 1px; // force it to take space no matter what
   @if ($gutter != 0) {
     width: calc(#{$span / $total *  100%} - #{$gutter});
   }

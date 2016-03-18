@@ -35,5 +35,7 @@
 // $bp-large - the breakpoint between medium (tablet) and large (desktop) layouts.
 //
 // Styleguide I.3.1
-$bp-medium: pxToEm(700);
-$bp-large: pxToEm(1000);
+$bp-small: pxToEm(720);
+$bp-medium: pxToEm(960);
+$bp-large: pxToEm(1200);
+$bp-max: remToEm($site-max-width);
