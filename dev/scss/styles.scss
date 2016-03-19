@@ -83,7 +83,9 @@
 // Styleguide 3.0
 @import
   'atoms/canvas-halftone',
-  'atoms/pull-quote'
+  'atoms/pull-quote',
+  'atoms/button',
+  'atoms/lead-in'
   ;
 
 // Molecules
@@ -107,8 +109,9 @@
 // >\- http://bradfrost.com/blog/post/atomic-web-design/#organisms
 //
 // Styleguide 5.0
-// @import
-//   ;
+@import
+  'organisms/relateds'
+  ;
 
 // Page
 //

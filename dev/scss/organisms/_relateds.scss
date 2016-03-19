@@ -1,0 +1,29 @@
+// Related Entries bar
+.relateds__container {
+  clear: both;
+  position: relative;
+  padding: $vr * 8 0;
+  left: 50%;
+  width: 110vw;
+  transform: translateX(-50%);
+  filter: drop-shadow(2px 3px 0 $dark);
+}
+.relateds {
+  background: $light;
+  padding: $vr * 4 $wr;
+}
+.relateds__inner {
+  @include gridContainer;
+  max-width: 90vw;
+
+  @include mq ($bp-max) {
+    max-width: pxToRem(1440);
+  }
+  .card {
+    position: relative;
+    @include colspan (4);
+    background: white;
+    padding: $vr * 2;
+    @include h3;
+  }
+}

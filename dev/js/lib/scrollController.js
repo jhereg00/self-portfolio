@@ -29,7 +29,7 @@ var Parallax = function Parallax (element, onScroll) {
   }
   if (onScroll) {
     this.onScroll = function scrollParallax () {
-      onScroll(_this.getPercentage());
+      onScroll.apply(_this, [_this.getPercentage()]);
     }
   }
 

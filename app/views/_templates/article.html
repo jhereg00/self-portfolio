@@ -2,26 +2,74 @@
 
   {% block content %}
     <article class="article">
-      <header class="article__header" style="background-image: url(/images/{{ attributes.masthead }})"></header>
-      <div class="article__inner">
-        <h1>{{ attributes.title }}</h1>
-        <div class="article__content">
-          {{ content }}
-        </div>
-        <div class="dev-grid">
-          <div class="dev-grid__column"></div>
-          <div class="dev-grid__column"></div>
-          <div class="dev-grid__column"></div>
-          <div class="dev-grid__column"></div>
-          <div class="dev-grid__column"></div>
-          <div class="dev-grid__column"></div>
-          <div class="dev-grid__column"></div>
-          <div class="dev-grid__column"></div>
-          <div class="dev-grid__column"></div>
-          <div class="dev-grid__column"></div>
-          <div class="dev-grid__column"></div>
-          <div class="dev-grid__column"></div>
+      <header class="article__header" style="background-image: url(/images/{{ entry.masthead }})"></header>
+      <div class="article__layout">
+        <div class="article__inner">
+          <h1 class="article__title">{{ entry.title }}</h1>
+          <aside class="article__details">
+            <div class="article__details-grid">
+              <nav class="article__details-nav">
+                <a class="button" href="{{ entry.siteUrl }}" target="_blank"><div class="button__text">View Site</div></a>
+              </nav>
+              <div class="roles">
+                {% if entry.roles %}
+                  <h5 class="roles__header">My Role{% if entry.roles|length > 1 %}s{% endif %}</h5>
+                  <ul class="roles__list">
+                    {% for role in entry.roles %}
+                      <li class="role-tag {{ role|replace(' ','-') }}">{{ role|title }}</li>
+                    {% endfor %}
+                  </ul>
+                {% endif %}
+                <p>Launched around {{ entry.date | date ('MMMM, YYYY') }}</p>
+              </div>
+            </div>
+          </aside>
+          <div class="article__content">
+            {{ entry.content }}
+          </div>
+
+          <div class="relateds__container">
+            <div class="relateds">
+              <div class="relateds__inner">
+                {% for article in relatedEntries %}
+                  <a href="/interactive/{{ article.slug }}"><div class="card">{{ article.title }}</div></a>
+                {% endfor %}
+              </div>
+            </div>
+          </div>
+
+          <div class="dev-grid">
+            <div class="dev-grid__column"></div>
+            <div class="dev-grid__column"></div>
+            <div class="dev-grid__column"></div>
+            <div class="dev-grid__column"></div>
+            <div class="dev-grid__column"></div>
+            <div class="dev-grid__column"></div>
+            <div class="dev-grid__column"></div>
+            <div class="dev-grid__column"></div>
+            <div class="dev-grid__column"></div>
+            <div class="dev-grid__column"></div>
+            <div class="dev-grid__column"></div>
+            <div class="dev-grid__column"></div>
+          </div>
         </div>
       </div>
     </article>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consectetur, quasi? A alias maiores quibusdam at dicta magnam, quis omnis, eaque repellendus veritatis excepturi quas eos quae explicabo sit quisquam neque.</p>
+    <h1>1</h1>
+    <p>Iure possimus, quisquam earum fuga unde atque explicabo, vero cupiditate, eveniet placeat dolorum illum numquam consequuntur soluta quod similique culpa nostrum in pariatur reiciendis ut. Voluptate odit corrupti sunt laborum.</p>
+    <h1>2</h1>
+    <p>Quo eveniet adipisci voluptatum. Odio suscipit molestias laborum, omnis sed nisi quas animi soluta aperiam! Esse, ipsum in impedit quae, molestiae illo quam illum? Hic saepe nam quibusdam voluptate necessitatibus.</p>
+    <h1>3</h1>
+    <p>Nobis corporis cumque ipsam voluptas accusantium. Quia nihil a, autem odit temporibus dolore accusamus eligendi minima, eum quod, et ex consequuntur dolores recusandae aliquam. Molestias mollitia molestiae soluta atque eos?</p>
+    <h1>4</h1>
+    <p>Placeat officia sit facilis, expedita ea. Rem ut dolores deserunt neque ipsum excepturi, repellat officiis, nesciunt sunt pariatur nemo enim vitae adipisci veniam hic, atque ipsam animi nisi reprehenderit numquam.</p>
+    <h1>5</h1>
+    <p>A iste quasi totam alias minus velit veniam eius reprehenderit reiciendis ipsum modi, voluptates facilis tempora, obcaecati provident molestiae ex iure deserunt nam, temporibus tenetur assumenda. Ab vero nulla iure!</p>
+    <h1>6</h1>
+    <p>Velit suscipit quae quam facilis. Eos, eligendi, sunt? Ipsa dignissimos cum adipisci sapiente. Quia obcaecati quo, necessitatibus, quasi voluptatibus porro voluptates rem in, veniam iure officia maxime magnam totam, cumque.</p>
+    <h1>7</h1>
+    <p>Nobis nihil voluptatibus, quibusdam eius consequuntur labore odio sit ut, neque, ad error cumque nemo quo ea iure eum totam nostrum eligendi nam! Consectetur facilis, at adipisci veniam aspernatur dignissimos.</p>
+    <h1>8</h1>
   {% endblock %}

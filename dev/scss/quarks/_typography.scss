@@ -22,37 +22,28 @@ h2,.h2 {
   @include h2;
   @include font-secondary;
   margin: $vr * 4 auto $vr * 2;
-  font-weight: 700;
 }
 h3,.h3 {
   @include h3;
   @include font-secondary;
   margin: $vr * 3 auto $vr;
-  font-weight: 700;
 }
 h4,.h4 {
   @include h4;
   @include font-secondary;
   margin: $vr auto;
-  font-weight: 700;
+}
+h5,.h5 {
+  @include body;
+  @include font-secondary;
+  margin: $vr auto;
 }
 p {
-  margin: $vr auto;
-
-  .h1,.h2,.h3,.h4 {
-    display: inline;
-    vertical-align: middle;
-    // margin: 0 $wr / 2;
-    //
-    // &:first-child {
-    //   margin-left: 0;
-    // }
-  }
+  margin: $vr * 2 auto;
 }
 
 %content-header {
   color: $medium;
   @include font-secondary;
-  font-weight: 700;
   text-shadow: 1px 1.5px 0 $dark;
 }

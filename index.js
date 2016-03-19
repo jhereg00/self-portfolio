@@ -20,6 +20,9 @@ var njEnv = nunjucks.configure(['app/views'], {
   autoescape: false,
   watch: ENV === 'development'
 });
+// add extra filters
+var njDateFilter = require('nunjucks-date');
+njEnv.addFilter('date',njDateFilter);
 // add useful dump function
 njEnv.addGlobal('dump', function (data) {
   if (ENV === 'development') {
@@ -43,7 +46,7 @@ app.use(express.static('./public/', {
 }));
 // basic routes
 app.use(require('./app/controllers/index'));
-app.use(require('./app/controllers/interactive'));
+app.use(require('./app/controllers/interactiveController'));
 
 //////////////
 // Start Express App

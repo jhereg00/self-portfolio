@@ -17,11 +17,13 @@ $font-secondary: "Poppins",sans-serif;
 
 @mixin font-primary {
   font-family: $font-primary;
-  letter-spacing: .025em;
+  -webkit-font-smoothing: antialiased;
+  letter-spacing: .02em;
 }
 @mixin font-secondary {
   font-family: $font-secondary;
-  letter-spacing: .01em;
   -webkit-font-smoothing: antialiased;
   font-weight: normal;
+  font-weight: 700;
+  letter-spacing: 0;
 }

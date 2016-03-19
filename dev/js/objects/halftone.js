@@ -13,7 +13,7 @@ var loop = require('lib/loop');
 // settings
 var DEFAULTS = {
   fade: 4, // rows to fade top and bottom, if 0 the canvas is sized to be contained instead of overflow on the sides
-  maxRadius: 15, // maximum radius for a dot
+  maxRadius: 10, // maximum radius for a dot
   inEaseFn: eases.easeOut,
   inEaseStart: .2, // scroll percentage to start animation in on first dot
   inEaseEnd: .8, // scroll percentage to end animation in on last dot
@@ -23,7 +23,8 @@ var DEFAULTS = {
   fixed: false, // fixed position and full screen?
   imageSizing: 'cover', // 'cover' or 'contain'
   cornering: 0, // diagnal top left fade
-  control: 'scroll' // 'scroll', 'mouse' (TODO), or 'none'
+  control: 'scroll', // 'scroll', 'mouse' (TODO), or 'none'
+  fill: null // optionally override fill color
 }
 
 /**
@@ -97,12 +98,13 @@ var Halftone = function (element, settings) {
     this.element.style.position = 'relative';
   }
   // set up color and image
-  this.fill = computedStyle.backgroundColor;
+  this.fill = this.settings.fill || computedStyle.backgroundColor;
   if (!!computedStyle.backgroundImage && computedStyle.backgroundImage !== 'none') {
     this.image = new Image();
     this.image.src = computedStyle.backgroundImage.match(/\((?:'|")?(.+?)(?:'|")?\)/)[1];
   }
-  this.element.style.background = 'none';
+  if (!this.settings.fill)
+    this.element.style.background = 'none';
 
   // listeners
   var _this = this;
@@ -188,6 +190,14 @@ Halftone.prototype = {
     this.columns = columns;
     this.rows = rows;
 
+    // center in container
+    // if (!this.settings.fixed || getBreakpoint < 3) {
+    //   this.canvas.style.position = 'absolute';
+    //   this.canvas.style.top = (this.element.offsetHeight - this.canvas.height) / 2 + 'px';
+    //   this.canvas.style.left = (this.element.offsetWidth - this.canvas.width) / 2 + 'px';
+    // }
+
+
     // define the dots
     this.dots = [];
     for (var y = 0; y < rows; y++) {
@@ -218,7 +228,12 @@ Halftone.prototype = {
       }
     }
 
-    this.element.appendChild(this.canvas);
+    if (this.element.children.length) {
+      this.element.insertBefore(this.canvas, this.element.children[0]);
+    }
+    else {
+      this.element.appendChild(this.canvas);
+    }
 
     // determine image size
     if (this.image) {
@@ -247,6 +262,13 @@ Halftone.prototype = {
     }
   },
   sizeImage: function () {
+    // make sure we successfully loaded
+    if (!this.image.width || !this.image.height) {
+      this.imageOffsets = null;
+      return false;
+    }
+
+    // figure out the scale to match 'cover' or 'contain', as defined by settings
     var scale = this.canvas.width / this.image.width;
     if (this.settings.imageSizing === 'cover' && scale * this.image.height < this.canvas.height) {
       scale = this.canvas.height / this.image.height;
@@ -254,7 +276,7 @@ Halftone.prototype = {
     else if (this.settings.imageSizing === 'contain' && scale * this.image.height > this.canvas.height) {
       scale = this.canvas.height / this.image.height;
     }
-    //this.imageScale = scale;
+    // save the x,y,width,height of the scaled image so it can be easily drawn without math
     this.imageOffsets = {
       x: (this.canvas.width - this.image.width * scale) / 2,
       y: (this.canvas.height - this.image.height * scale) / 2,
@@ -287,7 +309,7 @@ Halftone.prototype = {
       this.scrollController.disable();
     // establish defaults
     startPerc = startPerc || 0;
-    endPerc = endPerc || 1;
+    endPerc = !isNaN(endPerc) ? endPerc : 1;
     time = time || 1000;
     ease = ease || eases.easeInOut;
     // get some base vars

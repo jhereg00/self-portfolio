@@ -1,0 +1,73 @@
+// Button
+//
+// Standard button
+//
+// :hover - hover style
+// :active - active style
+// .block - block style
+// .light & - on light
+//
+// Markup:
+//   <a href="#" class="button {{ modifier }}"><span class="button__text">This is a Button</span></a>
+//
+// Styleguide 3.2
+$button-color: $medium;
+.button {
+  position: relative;
+  display: block;
+  padding: $vr $wr $vr $wr;
+  margin: $vr auto;
+  border-radius: $wr;
+  background: $button-color;
+  color: $white;
+  text-decoration: none;
+  text-align: center;
+  transition: border-color $transition-time / 2;
+  @include font-secondary;
+  @include h4;
+  box-shadow: 1px 1.5px 0 $dark;
+  overflow: hidden;
+
+  // &::before {
+  //   content: '';
+  //   position: absolute;
+  //   top: $vr * 2; left: -2 * $wr; bottom: 0;
+  //   width: $wr * 2.5;
+  //   background: $button-color;
+  //   border-radius: $wr $wr 0 $wr;
+  //   transition: background $transition-time;
+  // }
+  // &::after {
+  //   content: '';
+  //   position::absolute;
+  //   top: $vr; left: -1 * $wr;
+  //   width: $wr * 2;
+  //   height: $wr * 2;
+  //   background: $button-color;
+  //   border-radius: 50%;
+  //   transition: background $transition-time;
+  // }
+  //
+  // &:hover {
+  //   transform: translate(-1px, -1.5px);
+  //   filter: drop-shadow(2px 3px 0 $dark);
+  //   &, &::before, &::after, .button__text::before {
+  //     background: $light;
+  //   }
+  // }
+}
+.button__text {
+  position: relative;
+  z-index: 1;
+  // &::before {
+  //   content: '';
+  //   position: absolute;
+  //   top: $vr; left: -1 * $wr;
+  //   width: $wr * 1.25;
+  //   height: $wr * 1.25;
+  //   background: $button-color;
+  //   border-radius: 50%;
+  //   transform: translate(-50%, -50%);
+  //   transition: background $transition-time;
+  // }
+}

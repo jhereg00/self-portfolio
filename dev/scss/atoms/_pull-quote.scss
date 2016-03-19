@@ -4,6 +4,20 @@
   @extend %content-header;
   color: $light;
   background: $neutral;
-  padding: $vr * 2;
+  padding: $vr * 4;
   margin-bottom: $vr * 3;
+
+  @supports (shape-outside: margin-box) {
+    &.drop {
+      shape-outside: polygon(0 $vr * 5, 100% $vr * 5, 100% calc(100% + #{$vr * 2}), 0 calc(100% + #{$vr * 2}));
+      margin: $vr * 7 0 $vr * 2 0;
+    }
+  }
+
+  > p:first-of-type {
+    margin-top: 0;
+  }
+  > :last-child {
+    margin-bottom: 0;
+  }
 }

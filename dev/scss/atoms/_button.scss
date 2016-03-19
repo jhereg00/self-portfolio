@@ -14,69 +14,58 @@
 
 .button {
   position: relative;
-  display: inline-block;
-  padding: $vr $wr * 2;
-  margin: $vr * 3 0;
-  //overflow: hidden;
-  border: 1px solid $accent;
-  border-radius: $wr * 2;
-  background: transparent;
+  display: block;
+  padding: 0;
+  margin: $vr auto $vr * 2;
+  background: $dark;
   color: $white;
   text-decoration: none;
-  transition: border-color $transition-time / 2;
+  text-align: left;
+  @include font-secondary;
+  @include body;
 
   &::before {
-    content: '';
-    display: block;
+    @include small;
+    color: transparent;
     position: absolute;
-    top: 50%; left: 50%;
-    width: 0; height: 0;
-    z-index: 0;
-    transform: translate(-50%,-50%);
-    border-radius: $wr * 2;
-    background: $accent;
-    transition: width $transition-time / 2 ease-in, height $transition-time / 4 ease-in $transition-time / 4, background-color $transition-time / 2;
+    bottom: 0; left: 0; right: 0;
+    padding: $vr / 4 $wr;
+    background: $dark;
+    transition: all $transition-time;
+    overflow: hidden;
   }
 
-  &:hover, &:active {
-    color: $white;
+  &:hover {
+    .button__text {
+      background: $light;
+      transform: translate(-2px, -3px);
+    }
     &::before {
-      width: 101%;
-      height: 100%;
-      transition: width $transition-time / 2 ease-out, height $transition-time / 4 ease-out, background-color $transition-time / 2;
+      color: $light;
+      transform: translateY(99%);
     }
   }
-  &:active {
-    border-color: $accent-dark;
+
+  &[target="_blank"] {
     &::before {
-      background: $accent-dark;
+      content: attr(href);
+      white-space: nowrap;
+      text-overflow: ellipsis;
     }
-  }
-
-  .light & {
-    border-color: $navy;
-    color: $black;
-
-    &::after {
-      content: '';
-      display: block;
-      position: absolute;
-      top: -1px; left: -1px;
-      width: 100%; height: 100%;
-      border: 1px solid $navy;
-      border-radius: $wr * 2;
-    }
-  }
-
-  &.block {
-    display: block;
-    padding: $vr $wr / 2;
-  }
-
-  @include mq ($bp-medium) {
-    padding: $vr $wr * 4;
   }
 }
 .button__text {
   position: relative;
+  display: block;
+  padding: $vr $wr * 6 $vr $wr;
+  margin: 0;
+  z-index: 1;
+  background: $medium;
+  transition: all $transition-time;
+  margin-right: $wr * 3;
+  //backface-visibility: hidden;
+  @supports (clip-path: polygon(0 0, 100% 100%, 0 100%)) {
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - #{$wr * 4}), calc(100% - #{$wr * 4}) 100%, 0 100%);
+    margin-right: $wr;
+  }
 }

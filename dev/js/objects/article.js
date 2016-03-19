@@ -4,10 +4,14 @@
 
 // requirements
 var Halftone = require('objects/halftone');
+var ScrollController = require('lib/scrollController');
+var getScrollPos = require('lib/getScrollPos');
+var eases = require('lib/ease');
 
 // settings
 var HEADER_HALFTONE_SETTINGS = {
-  fade: 12
+  fade: 12,
+  maxRadius: 16
 }
 var INNER_HALFTONE_SETTINGS = {
   fade: 0,
@@ -15,7 +19,15 @@ var INNER_HALFTONE_SETTINGS = {
   inEaseStart: .1, // scroll percentage to start animation in on first dot
   inEaseEnd: .5, // scroll percentage to end animation in on last dot
   outEaseStart: .75,
-  cornering: 4
+  cornering: 8
+}
+var RELATED_HALFTONE_SETTINGS = {
+  fade: 0,
+  inEaseStart: -.4,
+  inEaseEnd: .8,
+  inEaseFn: eases.linear,
+  outEaseStart: .6,
+  outEaseEnd: 1.2
 }
 
 /**
@@ -39,6 +51,64 @@ var Article = function (element) {
     var ht = new Halftone(halftoneEls[i], INNER_HALFTONE_SETTINGS);
     //ht.animIn(1200);
     this.halftones.push(ht);
+  }
+
+  var relatedsEl = element.querySelector('.relateds');
+  if (relatedsEl) {
+    this.halftones.push(new Halftone(relatedsEl, RELATED_HALFTONE_SETTINGS));
+  }
+
+  // buttons
+  // var buttonEls = element.querySelectorAll('.button');
+  // this.buttons = [];
+  // for (var i = 0, len = buttonEls.length; i < len; i++) {
+  //   var ht = new Halftone(buttonEls[i], {
+  //     fade: 1,
+  //     inEaseStart: 0,
+  //     inEaseEnd: 1,
+  //     outEaseStart: 1.1,
+  //     outEaseEnd: 1.1,
+  //     control: 'none',
+  //     fill: '#046c6f'
+  //   });
+  //   buttonEls[i].addEventListener('mouseover',function () {
+  //     ht.anim(.5,1,3000);
+  //   }, false);
+  //   buttonEls[i].addEventListener('mouseout',function () {
+  //     ht.anim(1,.5,3000);
+  //   }, false);
+  //   this.halftones.push(ht);
+  // }
+
+  // listen for when to destroy
+  var _this = this;
+  var onScroll = function (scrollPercentage) {
+    if (getScrollPos() > this.bottom + 300)
+      _this.destroy(true);
+  }
+  this.scrollController = new ScrollController(this.element);
+}
+Article.prototype = {
+  destroy: function (isPast) {
+    var newScrollPos = getScrollPos() - this.element.offsetHeight;
+    if (this.header)
+      this.header.destroy();
+    for (var i = 0, len = this.halftones.length; i < len; i++)
+      this.halftones[i].destroy();
+
+    this.scrollController.destroy();
+
+    // fix scroll position
+    if (isPast) {
+      var retried = false;
+      function fixScroll () {
+        window.scrollTo(0,newScrollPos);
+      }
+      fixScroll();
+      requestAnimationFrame(fixScroll);
+    }
+    this.element.remove();
+    //delete this;
   }
 }
 
