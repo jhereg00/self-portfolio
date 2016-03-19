@@ -28,13 +28,16 @@ var Article = function (element) {
   var headerEl = element.querySelector('.article__header');
   if (headerEl) {
     this.header = new Halftone(headerEl, HEADER_HALFTONE_SETTINGS);
+    this.header.animIn(1200);
   }
 
   // init other halftones
   var halftoneEls = element.querySelectorAll('.halftone');
   this.halftones = [];
   for (var i = 0, len = halftoneEls.length; i < len; i++) {
-    this.halftones.push(new Halftone(halftoneEls[i], INNER_HALFTONE_SETTINGS));
+    var ht = new Halftone(halftoneEls[i], INNER_HALFTONE_SETTINGS);
+    //ht.animIn(1200);
+    this.halftones.push(ht);
   }
 }
 

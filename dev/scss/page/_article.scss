@@ -12,7 +12,8 @@ $header-height: 50vh;
   color: $black;
   padding-top: $header-height;
   max-width: pxToRem(1680);
-  margin: $vr * 40 auto;
+  margin: $vr * 4 auto;
+  animation: margin-top-away 3s forwards;
 
   &::before {
     content: '';

@@ -19,10 +19,11 @@ var DEFAULTS = {
   inEaseEnd: .8, // scroll percentage to end animation in on last dot
   outEaseFn: eases.linear,
   outEaseStart: .6, // scroll percentage to start animation out on first dot
-  outEaseEnd: 1.4, // scroll percentage to end animation out on last dot
+  outEaseEnd: 1.1, // scroll percentage to end animation out on last dot
   fixed: false, // fixed position and full screen?
   imageSizing: 'cover', // 'cover' or 'contain'
-  cornering: 0 // diagnal top left fade
+  cornering: 0, // diagnal top left fade
+  control: 'scroll' // 'scroll', 'mouse' (TODO), or 'none'
 }
 
 /**
@@ -76,8 +77,11 @@ Dot.prototype = {
  *
  *  @method draw({percentage of animation progress})
  *  @method createCanvas()
+ *  @method sizeImage() - for internal use
  *  @method getPercentageFromScroll() - returns a percentage of progress past element based on scrolling
  *  @method init()
+ *  @method destroy()
+ *  @method animIn({animation time in ms})
  */
 var Halftone = function (element, settings) {
   this.element = element;
@@ -97,7 +101,6 @@ var Halftone = function (element, settings) {
   if (!!computedStyle.backgroundImage && computedStyle.backgroundImage !== 'none') {
     this.image = new Image();
     this.image.src = computedStyle.backgroundImage.match(/\((?:'|")?(.+?)(?:'|")?\)/)[1];
-    console.log(this.image);
   }
   this.element.style.background = 'none';
 
@@ -115,10 +118,9 @@ var Halftone = function (element, settings) {
 }
 Halftone.prototype = {
   draw: function (percentage) {
-    if (!this.canvas) {
+    if (!this.canvas || (percentage < this.settings.inEaseStart || percentage > this.settings.outEaseEnd)) {
       return false;
     }
-
     // clear current crap
     this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
     this.ctx.save();
@@ -141,7 +143,6 @@ Halftone.prototype = {
     this.ctx.fill();
 
     if (this.image && this.imageOffsets) {
-      console.log('try draw image');
       this.ctx.globalCompositeOperation = "source-atop";
       this.ctx.drawImage(this.image, this.imageOffsets.x, this.imageOffsets.y, this.imageOffsets.width, this.imageOffsets.height);
     }
@@ -228,17 +229,19 @@ Halftone.prototype = {
         var _this = this;
         this.image.onload = function () {
           _this.sizeImage();
-          _this.draw(getBreakpoint() >= 3 ? _this.scrollController.getPercentage() : .45);
+          _this.draw(_this.getPercentageFromScroll());
         }
       }
     }
 
     // establish scroll based controls only if screen is large enough for us to care
-    if (getBreakpoint() >= 3) {
+    if (getBreakpoint() >= 3 && this.settings.control === 'scroll') {
       this.scrollController = new ScrollController(this.element, this.onScroll);
     }
     else {
-      this.draw(.45);
+      if (this.scrollController)
+        this.scrollController.destroy();
+      this.draw(this.getPercentageFromScroll());
     }
   },
   sizeImage: function () {
@@ -258,7 +261,7 @@ Halftone.prototype = {
     }
   },
   getPercentageFromScroll: function () {
-    return this.scrollController.getPercentage();
+    return this.scrollController ? this.scrollController.getPercentage() : .55;
   },
   init: function () {
     // make the canvas
@@ -275,6 +278,59 @@ Halftone.prototype = {
     loop.removeFunction(this.onResize);
     this.canvas.remove();
     delete this;
+  },
+  anim: function (startPerc, endPerc, time, ease, cb) {
+    // first, turn off scroll listening
+    if (this.scrollController)
+      this.scrollController.disable();
+    // establish defaults
+    startPerc = startPerc || 0;
+    endPerc = endPerc || 1;
+    time = time || 1000;
+    ease = ease || eases.easeInOut;
+    // get some base vars
+    var startTime = new Date().getTime();
+    var deltaPerc = endPerc - startPerc;
+    var _this = this;
+    var running = true;
+    // this goes in the loop
+    var animationFn = function () {
+      if (running) {
+        var now = new Date().getTime();
+        var deltaTime = (now - startTime) / time;
+        if (deltaTime < 1)
+          _this.draw(ease(startPerc,deltaPerc,deltaTime));
+        else {
+          running = false;
+          _this.draw(endPerc);
+          if (_this.scrollController)
+            _this.scrollController.enable();
+          // get back out of the loop
+          loop.removeFunction(animationFn);
+          if (cb)
+            cb();
+        }
+      }
+    }
+    loop.addFunction(animationFn);
+  },
+  animIn: function (time, cb) {
+    // animate the canvas from inEaseStart to current scroll pos
+    // check if we even need to
+    var endPerc = this.getPercentageFromScroll();
+    if (endPerc < this.settings.inEaseStart)
+      return false;
+
+    this.anim(this.settings.inEaseStart, endPerc, time, eases.easeOut, cb);
+  },
+  animOut: function (time, cb) {
+    // animate the canvas from inEaseStart to current scroll pos
+    // check if we even need to
+    var startPerc = this.getPercentageFromScroll();
+    if (startPerc < this.settings.inEaseStart)
+      return false;
+
+    this.anim(startPerc, this.settings.inEaseStart, time, eases.easeIn, cb);
   }
 }
 

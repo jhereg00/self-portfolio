@@ -34,7 +34,7 @@ var Parallax = function Parallax (element, onScroll) {
   }
 
   // start 'er up
-  this.init();
+  this.enable();
 }
 Parallax.prototype = {
   measure: function () {
@@ -48,15 +48,19 @@ Parallax.prototype = {
     var perc = (scrollY - this.top) / (this.height);
     return perc;
   },
-  init: function () {
+  disable: function () {
+    loop.removeFunction(this.onResize);
+    if (this.onScroll)
+      loop.removeFunction(this.onScroll);
+  },
+  enable: function () {
     loop.addResizeFunction(this.onResize);
     if (this.onScroll)
       loop.addScrollFunction(this.onScroll);
   },
   destroy: function () {
-    loop.removeFunction(this.onResize);
-    if (this.onScroll)
-      loop.removeFunction(this.onScroll);
+    this.disable();
+    delete this;
   }
 }
 
