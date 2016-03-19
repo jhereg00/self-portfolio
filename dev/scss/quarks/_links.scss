@@ -6,30 +6,15 @@
 // Styleguide 2.2
 
 $link-color: $accent;
-$hover-color: #08adff; // temp?
 
-a {
+p a {
+  display: inline-block;
   color: $link-color;
-  transition: color $transition-time;
+  transition: all $transition-time;
   text-decoration: none;
   font-weight: 700;
   &:hover {
-    color: $hover-color;
-  }
-}
-
-@supports (-webkit-background-clip:text) {
-  // specifically targeting links in p tags so we don't interfere with other shit
-  p a {
-    display: inline-block;
-    background: linear-gradient(45deg, $hover-color, $hover-color 40%, $link-color 60%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-size: 300% 500%;
-    background-position: right center;
-    transition: background-position $transition-time * 2;
-    &:hover {
-      background-position: left center;
-    }
+    transform: translate(pxToEm(-.66px,18), pxToEm(-1px,18));
+    text-shadow: pxToEm(.66px,18) pxToEm(1px,18) 0 $medium;
   }
 }

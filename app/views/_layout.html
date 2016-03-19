@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if title %}{{ title }} - {% endif %}Portfolio of Glenn Martin</title>
+
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+  <div class="global-container">
+    {% block content %}{% endblock %}
+  </div>
+
+  <script src="/js/scripts.js"></script>
+</body>
+</html>

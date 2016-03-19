@@ -14,6 +14,7 @@ var INNER_HALFTONE_SETTINGS = {
   imageSizing: 'contain',
   inEaseStart: .1, // scroll percentage to start animation in on first dot
   inEaseEnd: .5, // scroll percentage to end animation in on last dot
+  outEaseStart: .75,
   cornering: 4
 }
 

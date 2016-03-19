@@ -12,7 +12,7 @@ $header-height: 50vh;
   color: $black;
   padding-top: $header-height;
   max-width: pxToRem(1680);
-  margin: $vr * 4 auto;
+  margin: $vr * 4 auto $vr * 100;
   animation: margin-top-away 3s forwards;
 
   &::before {
@@ -86,9 +86,12 @@ $header-height: 50vh;
   filter: drop-shadow($outer-drop-shadow);
 
   h1,h2,h3,h4,h5 {
-    color: $medium;
-    text-shadow: 3px 3px 0 $dark;
+    @extend %content-header;
+    text-shadow: 2px 3px 0 $dark;
   }
+  // h2,h3,h4,h5 {
+  //   clear: both;
+  // }
 
   &::before {
     content: '';
@@ -128,8 +131,8 @@ $header-height: 50vh;
       @include colpush (3,12,0);
     }
     @include mq ($bp-medium) {
-      @include colspan (6,12,0);
-      @include colpush (4,12,0);
+      @include colspan (7,12,0);
+      @include colpush (3,12,0);
     }
   }
 

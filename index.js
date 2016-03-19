@@ -43,6 +43,7 @@ app.use(express.static('./public/', {
 }));
 // basic routes
 app.use(require('./app/controllers/index'));
+app.use(require('./app/controllers/interactive'));
 
 //////////////
 // Start Express App

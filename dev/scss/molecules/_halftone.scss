@@ -1,6 +1,5 @@
 // Halftone container
 .halftone {
-  padding: $vr * 4;
   &, & > :not(.canvas-halftone) {
     position: relative;
     z-index: 1;

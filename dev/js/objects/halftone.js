@@ -239,8 +239,10 @@ Halftone.prototype = {
       this.scrollController = new ScrollController(this.element, this.onScroll);
     }
     else {
-      if (this.scrollController)
+      if (this.scrollController) {
         this.scrollController.destroy();
+        this.scrollController = null;
+      }
       this.draw(this.getPercentageFromScroll());
     }
   },

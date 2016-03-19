@@ -15,28 +15,49 @@
 //
 // Styleguide 1.4
 @mixin super () {
-  font-size: pxToRem(110);
-  line-height: $vr * 8;
+
+  @include mq ($bp-large) {
+    font-size: pxToRem(110);
+    line-height: $vr * 8;
+  }
 }
 @mixin h1 () {
-  font-size: pxToRem(82);
-  line-height: $vr * 6;
+  font-size: pxToRem(54);
+  line-height: $vr * 4;
+  @include mq ($bp-large) {
+    font-size: pxToRem(82);
+    line-height: $vr * 6;
+  }
 }
 @mixin h2 () {
-  font-size: pxToRem(49);
-  line-height: $vr * 4;
+  font-size: pxToRem(36);
+  line-height: $vr * 3;
+  @include mq ($bp-large) {
+    font-size: pxToRem(49);
+    line-height: $vr * 4;
+  }
 }
 @mixin h3 () {
-  font-size: pxToRem(30);
-  line-height: $vr * 3;
-}
-@mixin h4 () {
   font-size: pxToRem(24);
   line-height: $vr * 2;
+  @include mq ($bp-large) {
+    font-size: pxToRem(30);
+    line-height: $vr * 3;
+  }
+}
+@mixin h4 () {
+  font-size: pxToRem(20);
+  line-height: $vr * 2;
+  @include mq ($bp-large) {
+    font-size: pxToRem(24);
+  }
 }
 @mixin body () {
-  font-size: pxToRem(18);
+  font-size: pxToRem(16);
   line-height: $vr * 2;
+  @include mq ($bp-large) {
+    font-size: pxToRem(18);
+  }
 }
 @mixin small () {
   font-size: pxToRem(13);
