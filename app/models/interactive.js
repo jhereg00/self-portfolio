@@ -9,7 +9,7 @@ const fs = require('fs');
 // settings
 const DATA_PATH = 'data/interactive/';
 const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-const MD_PROPS = ['__content']; // any properties that should get parsed by markdown
+const MD_PROPS = ['__content','excerpt']; // any properties that should get parsed by markdown
 
 // storage
 var allInteractive = [];

@@ -1,15 +1,14 @@
 ---
 title: The District Detroit
 roles:
-  - web developer
-  - web animator
+  - developer
+  - animator
 date: 2014-09-23
 sexiness: 3
-masthead: district-detroit.png
+masthead: interactive/district-detroit.png
 siteUrl: http://www.districtdetroit.com
+excerpt: Building excitement for building up a city.
 ---
-
-# This is some sexy ass content.
 
 It talks about _all_ the **awesomeness** that is this.
 

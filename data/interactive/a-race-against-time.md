@@ -1,15 +1,17 @@
 ---
 title: A Race Against Time
 roles:
-  - web designer
-  - web developer
-  - web animator
+  - designer
+  - developer
+  - animator
 date: 2015-11-06
 sexiness: 5
+masthead: interactive/a-race-against-time.jpg
 siteUrl: http://www.experienceonstar.com/view/a-race-against-time
+excerpt: A tense story that was turned into a suspenseful experience for readers.
 ---
 
-<p class="lead-in">A tense story was turned into a suspenseful experience for users.</p>
+<p class="lead-in">A tense story that was turned into a suspenseful experience for readers.</p>
 
 For this OnStar Cover Story, I was fortunate enough to be given near free rein to push the content to the next level.  After reading the story and looking through the photos available to me, I decided to keep the content front and center.  Rather than add a ton of interactive toys, it was more effective to use scroll based animations and triggers to emphasize the tension.
 
@@ -34,5 +36,5 @@ This spacing is also used to add one final misdirect of sorts. The screen flashe
 The final call for organ donors helps involve the reader, and humanizes the whole situation. Despite being on an OnStar marketing site, the story is about a person and their experience. The design is used to emphasize that.
 
 <div class="lead-in">
-  <p>If you want to more about the site as a whole, I have another <a href="/interactive/experience-onstar">case study</a> for it on this site.</p>
+  <p>If you want to learn more about the site as a whole, I have another <a href="/interactive/experience-onstar">case study</a> for it on this site.</p>
 </div>

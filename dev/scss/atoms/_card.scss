@@ -1,0 +1,96 @@
+// Article Card
+.card {
+  @extend %clear-fix;
+  display: block;
+  color: $black;
+  backface-visibility: hidden;
+  text-decoration: none;
+  &:hover {
+    .card__title {
+      transform: translate(-4px, -6px);
+    }
+    .card__excerpt {
+      transform: translate(-2px, -3px);
+    }
+    .card__roles {
+      transform: translate(-1px, -1.5px);
+    }
+  }
+}
+.card__image {
+  position: relative;
+  width: calc(100% - #{$wr * 1.5});
+  margin: 0 $wr $vr * -6 $wr / 2;
+  box-shadow: 2px 3px 0 $dark;
+  z-index: 0;
+}
+.card__title {
+  position: relative;
+  @include h3;
+  //@extend %content-header;
+  color: $medium;
+  text-shadow: 1px 1.5px 0 $dark;
+  background: white;
+  margin: 0 $wr * 4 0 $wr;
+  padding: $vr $wr;
+  box-shadow: 2px 3px 0 $dark;
+  z-index: 3;
+  transition: transform $transition-time;
+}
+.card__excerpt {
+  position: relative;
+  float: right;
+  width: calc(66.66% + #{$wr / 2});
+  padding: $vr * 2 $wr * 2;
+  box-sizing: border-box;
+  background: $off-white;
+  box-shadow: 2px 3px 0 $dark;
+  z-index: 2;
+  transition: transform $transition-time;
+  &::before {
+    content: '';
+    position: absolute;
+    top: $vr * -2; left: 0; right: 0;
+    border-width: 0 $wr * 2 $vr * 2 + pxToRem(1) 0;
+    border-style: solid;
+    border-color: $off-white transparent;
+  }
+
+  > :first-child {
+    margin-top: 0;
+  }
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+.card__roles {
+  position: relative;
+  float: left;
+  width: calc(33.33% + #{$wr / 2});
+  padding: $vr * 2 $wr * 2 $vr * 2 $wr;
+  margin: 0 $wr * -1 0 0;
+  box-sizing: border-box;
+  background: $neutral;
+  box-shadow: 2px 3px 0 $dark;
+  z-index: 1;
+  color: $dark;
+  list-style-type: none;
+  text-align: right;
+  @include small;
+  transition: transform $transition-time;
+  &::before {
+    content: '';
+    position: absolute;
+    top: $vr * -1; left: 0; right: 0;
+    border-width: 0 0 $vr + pxToRem(1) $wr;
+    border-style: solid;
+    border-color: $neutral transparent;
+  }
+
+  li {
+    margin-bottom: $vr / 2;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}

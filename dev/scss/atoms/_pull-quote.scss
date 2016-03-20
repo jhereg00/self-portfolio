@@ -9,8 +9,10 @@
 
   @supports (shape-outside: margin-box) {
     &.drop {
-      shape-outside: polygon(0 $vr * 5, 100% $vr * 5, 100% calc(100% + #{$vr * 2}), 0 calc(100% + #{$vr * 2}));
-      margin: $vr * 7 0 $vr * 2 0;
+      @include mq ($bp-small) {
+        shape-outside: polygon(0 $vr * 5, 100% $vr * 5, 100% calc(100% + #{$vr * 2}), 0 calc(100% + #{$vr * 2}));
+        margin: $vr * 7 0 $vr * 2 0;
+      }
     }
   }
 

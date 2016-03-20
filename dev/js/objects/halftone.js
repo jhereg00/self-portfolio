@@ -13,7 +13,7 @@ var loop = require('lib/loop');
 // settings
 var DEFAULTS = {
   fade: 4, // rows to fade top and bottom, if 0 the canvas is sized to be contained instead of overflow on the sides
-  maxRadius: 10, // maximum radius for a dot
+  maxRadius: 12, // maximum radius for a dot
   inEaseFn: eases.easeOut,
   inEaseStart: .2, // scroll percentage to start animation in on first dot
   inEaseEnd: .8, // scroll percentage to end animation in on last dot
@@ -26,6 +26,7 @@ var DEFAULTS = {
   control: 'scroll', // 'scroll', 'mouse' (TODO), or 'none'
   fill: null // optionally override fill color
 }
+var BREAKPOINT_FOR_SCROLL_CONTROL = 2;
 
 /**
  *  Dot class
@@ -158,7 +159,7 @@ Halftone.prototype = {
     // create new canvas and dots
     this.canvas = document.createElement('canvas');
     this.canvas.setAttribute('class','canvas-halftone');
-    if (!this.settings.fixed || getBreakpoint() < 3) {
+    if (!this.settings.fixed || getBreakpoint() < BREAKPOINT_FOR_SCROLL_CONTROL) {
       // normal sizing and positioning
       var columns = Math.floor(this.element.offsetWidth / this.settings.maxRadius);
       var rows = Math.floor(this.element.offsetHeight / this.settings.maxRadius);
@@ -191,7 +192,7 @@ Halftone.prototype = {
     this.rows = rows;
 
     // center in container
-    // if (!this.settings.fixed || getBreakpoint < 3) {
+    // if (!this.settings.fixed || getBreakpoint < BREAKPOINT_FOR_SCROLL_CONTROL) {
     //   this.canvas.style.position = 'absolute';
     //   this.canvas.style.top = (this.element.offsetHeight - this.canvas.height) / 2 + 'px';
     //   this.canvas.style.left = (this.element.offsetWidth - this.canvas.width) / 2 + 'px';
@@ -250,7 +251,7 @@ Halftone.prototype = {
     }
 
     // establish scroll based controls only if screen is large enough for us to care
-    if (getBreakpoint() >= 3 && this.settings.control === 'scroll') {
+    if (getBreakpoint() >= BREAKPOINT_FOR_SCROLL_CONTROL && this.settings.control === 'scroll') {
       this.scrollController = new ScrollController(this.element, this.onScroll);
     }
     else {

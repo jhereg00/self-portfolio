@@ -1,0 +1,41 @@
+// Two On One
+//
+// Two images with text about them, displayed in verying ways depending on screen size.
+.two-on-one {
+  @extend %clear-fix;
+  margin-top: $vr * 4;
+  margin-bottom: $vr * 4;
+  img {
+    display: block;
+    position: relative;
+    z-index: 2;
+    max-width: 80%;
+    margin: 0 auto 0 0;
+    filter: drop-shadow(2px 3px 0 $dark);
+
+    @include mq ($bp-large) {
+      max-width: calc(50% + #{$wr * 2});
+      margin: 0 auto 0 $wr * 5;
+    }
+
+    &:nth-of-type(2) {
+      margin: $vr * -1 0 0 auto;
+      @include mq ($bp-large) {
+        float: right;
+        margin: $vr * -2 0 0 -2 * $wr;
+      }
+    }
+  }
+  .pull-quote {
+    position: relative;
+    z-index: 1;
+    margin: $vr * -1 $wr 0;
+    padding: $vr * 2 $wr * 3;
+    @include mq ($bp-large) {
+      float: left;
+      width: 50%;
+      margin: $vr * -2 0 0 0;
+      padding: $vr * 4;
+    }
+  }
+}

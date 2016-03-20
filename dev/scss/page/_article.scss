@@ -3,7 +3,9 @@ $width-margin-large: $wr * 8;
 $outer-drop-shadow: 6px 8px 0 $dark;
 $inner-drop-shadow: 3px 4px 0 $dark;
 $magic-angle-calc: calc((100vw - #{2 * $width-margin}) / 12);
+$magic-angle-calc-inverted: calc(100% - ((100vw - #{2 * $width-margin}) / 12));
 $magic-angle-calc-small: calc((75vw - #{2 * $width-margin}) / 12);
+$magic-angle-calc-small-inverted: calc(100% - ((75vw - #{2 * $width-margin}) / 12));
 $angle-offset-at-max-size: ($site-max-width - 2 * $width-margin) / 12;
 $header-height: 50vh;
 
@@ -12,7 +14,7 @@ $header-height: 50vh;
   color: $black;
   padding-top: $header-height;
   max-width: pxToRem(1680);
-  margin: 0 auto;
+  margin: 0 auto $vr * 4;
   animation: margin-top-away 3s forwards;
 }
 .article__header {
@@ -58,11 +60,11 @@ $header-height: 50vh;
   }
   &::after {
     position: absolute;
-    top: calc(#{$header-height} + #{$vr * 3}); bottom: 0; right: 0;
+    top: calc(#{$header-height} + #{$vr * 3}); bottom: $vr * -2; right: 0;
     left: calc(100% - #{$width-margin + $wr});
     z-index: 1;
     background: $off-white;
-    clip-path: polygon($magic-angle-calc 0, 100% 0, 100% 100%, 0 100%, 0 $magic-angle-calc);
+    clip-path: polygon($magic-angle-calc 0, 100% 0, 100% 100%, $magic-angle-calc-small 100%, 0 $magic-angle-calc-small-inverted, 0 $magic-angle-calc);
     @include mq ($bp-medium) {
       content: '';
     }
@@ -72,7 +74,7 @@ $header-height: 50vh;
     @include mq ($bp-max) {
       // infinite right at max size
       right: -999rem;
-      clip-path: polygon($angle-offset-at-max-size 0, 100% 0, 100% 100%, 0 100%, 0 $angle-offset-at-max-size);
+      clip-path: polygon($angle-offset-at-max-size 0, 100% 0, 100% 100%, $angle-offset-at-max-size * .75 100%, 0 calc(100% - #{$angle-offset-at-max-size * .75}), 0 $angle-offset-at-max-size);
     }
   }
 }
@@ -84,27 +86,19 @@ $header-height: 50vh;
   z-index: 2;
   @extend %clear-fix;
 
-  h1,h2,h3,h4 {
-    @extend %content-header;
-    text-shadow: 2px 3px 0 $dark;
-  }
-  // h2,h3,h4,h5 {
-  //   clear: both;
-  // }
-
   &::before {
     content: '';
     position: absolute;
     top: 0; bottom: 0; left: 0;
     right: -1 * $wr;
     background: $off-white;
-    clip-path: polygon(0 0, #{10/11*100%} 0, 100% $magic-angle-calc, 100% 100%, 0 100%);
+    clip-path: polygon(0 0, #{10/11*100%} 0, 100% $magic-angle-calc, 100% $magic-angle-calc-inverted, #{10/11*100%} 100%, 0 100%);
 
     @include mq ($bp-medium) {
       right: 1 / 12 * 100%;
     }
     @include mq ($bp-max) {
-      clip-path: polygon(0 0, #{10/11*100%} 0, 100% $angle-offset-at-max-size, 100% 100%, 0 100%);
+      clip-path: polygon(0 0, #{10/11*100%} 0, 100% $angle-offset-at-max-size, 100% calc(100% - #{$angle-offset-at-max-size}), #{10/11*100%} 100%, 0 100%);
     }
   }
 
@@ -130,8 +124,25 @@ $header-height: 50vh;
     @include colpush (3);
   }
 
+  h1 {
+    @extend %content-header;
+    text-shadow: 2px 3px 0 $dark;
+  }
+  h2,h3,h4,h5 {
+    @extend %content-header;
+  }
+
   > :first-child {
     margin-top: 0;
+  }
+
+  &::after {
+    content: '';
+    display: block;
+    width: 50%;
+    height: 2px;
+    margin: $vr * 4 auto 0;
+    background: $black;
   }
 }
 .article__title {
@@ -143,6 +154,8 @@ $header-height: 50vh;
   min-height: $vr * 10;
   padding: $vr * 2 $wr 0;
   background: $off-white linear-gradient(to bottom, $white $vr * 6, transparent 100%);
+  @extend %content-header;
+  text-shadow: 2px 3px 0 $dark;
   &::after {
     content: '';
     position: absolute;
@@ -195,8 +208,10 @@ $header-height: 50vh;
     @include colspan (12);
     @include mq ($bp-small) {
       @include colspan (4,8);
+      float: right;
     }
     @include mq ($bp-large) {
+      margin-top: $vr * 3;
       @include colspan (3,3);
     }
 
@@ -206,11 +221,12 @@ $header-height: 50vh;
       margin-left: 0;
       margin-right: 0;
       .roles__header {
-        @include h3;
+        margin-bottom: 0;
         text-align: right;
         @include colspan (5);
       }
       .roles__list {
+        padding: 0;
         @include colspan (7);
       }
     }
@@ -229,9 +245,22 @@ $header-height: 50vh;
     margin-top: 0;
   }
 }
+.article__date {
+  margin-top: $vr * 2;
+  @include colspan (12);
+  @include small;
+  @include mq ($bp-small) {
+    margin-top: 0;
+    clear: left;
+    @include colspan (6);
+  }
+  @include mq ($bp-large) {
+    margin-top: $vr * 4;
+    @include colspan (12);
+  }
+}
 
 %article-content-breakout-left, .breakout-left {
-  background: #ccc;
   margin-left: -1 * $wr;
   @include mq ($bp-small) {
     margin-left: calc(#{-1 / 4 * 100%} - #{$wr / 2});
@@ -244,7 +273,6 @@ $header-height: 50vh;
   }
 }
 %article-content-breakout-right, .breakout-right {
-  background: #ccc;
   margin-right: -1 * $wr;
   @include mq ($bp-small) {
     margin-right: calc(#{-1 / 4 * 100%} - #{$wr / 2});

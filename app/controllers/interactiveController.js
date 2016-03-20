@@ -32,12 +32,12 @@ router.param('interactiveSlug', function (req, res, next, value) {
         relatedEntries.push(interactives[i].data)
     }
     res.locals.relatedEntries = relatedEntries;
+    
+    next();
   }
   else {
     res.sendStatus(404);
   }
-
-  next();
 });
 
 router.get('/interactive/:interactiveSlug', function (req, res) {

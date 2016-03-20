@@ -85,7 +85,8 @@
   'atoms/canvas-halftone',
   'atoms/pull-quote',
   'atoms/button',
-  'atoms/lead-in'
+  'atoms/lead-in',
+  'atoms/card'
   ;
 
 // Molecules
@@ -97,7 +98,9 @@
 //
 // Styleguide 4.0
 @import
-  'molecules/halftone'
+  'molecules/halftone',
+  'molecules/roles',
+  'molecules/two-on-one'
   ;
 
 

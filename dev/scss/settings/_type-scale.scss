@@ -22,7 +22,7 @@
   }
 }
 @mixin h1 () {
-  font-size: pxToRem(54);
+  font-size: pxToRem(42); // out of scale, but words weren't fitting. Should be 54
   line-height: $vr * 4;
   @include mq ($bp-large) {
     font-size: pxToRem(82);

@@ -21,9 +21,25 @@
   }
   .card {
     position: relative;
-    @include colspan (4);
-    background: white;
-    padding: $vr * 2;
-    @include h3;
+    margin-bottom: $vr * 3;
+    @include colspan (12);
+    @include mq ($bp-medium) {
+      @include colspan (6);
+      margin-bottom: 0;
+      &:nth-child(3) {
+        display: none;
+      }
+    }
+    @include mq ($bp-large) {
+      @include colspan (4);
+      &:nth-child(3) {
+        display: block;
+      }
+    }
   }
+}
+.relateds__header {
+  margin: 0 auto $vr * 2;
+  position: relative;
+  max-width: pxToRem(1440);
 }
