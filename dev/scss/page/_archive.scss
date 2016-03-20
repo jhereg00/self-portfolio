@@ -1,0 +1,85 @@
+.archive {
+  position: relative;
+  max-width: $site-max-width + $width-margin-large * 2;
+  margin: 0 auto $vr * 4;
+  padding-top: $vr * 2;
+  z-index: 1;
+}
+.archive__inner {
+  position: relative;
+  margin: 0 $wr;
+  z-index: 2;
+  @extend %clear-fix;
+
+  @include mq ($bp-medium) {
+    margin: 0 $width-margin + $wr;
+  }
+  @include mq ($bp-large) {
+    margin-left: $width-margin-large;
+    margin-right: $width-margin-large;
+  }
+}
+.archive__controls {
+  position: relative;
+  @include colspan (11);
+  color: $black;
+  padding: $vr * 2 $wr * 2 $vr * 2 0;
+  margin-top: $vr * -2;
+  margin-bottom: $vr * 2;
+  filter: drop-shadow(4px 6px 0 $dark);
+  h1 {
+    @extend %content-header;
+    margin: 0;
+    @include mq ($bp-large) {
+      margin-left: $wr * -2;
+    }
+  }
+  @include mq ($bp-large) {
+    padding: $vr * 4 $wr * 2 $vr * 4 0;
+    @include colspan (4);
+  }
+  @include mq ($bp-max) {
+    @include colspan (3);
+  }
+
+  > * {
+    position: relative;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: -999rem;
+    background: $off-white;
+    clip-path: polygon(0 0, 100% 0, 100% calc(100% - #{$wr * 3}), calc(100% - #{$wr * 3}) 100%, 0 100%);
+  }
+}
+.archive__list-container {
+  @include colspan (12);
+  margin-top: $vr * 2;
+  @include mq ($bp-large) {
+    @include colspan (8);
+  }
+  @include mq ($bp-max) {
+    @include colpush (1);
+  }
+}
+.archive__list {
+  @include subgridContainer;
+  list-style-type: none;
+  padding: 0;
+}
+.archive__list-item {
+  @include colspan (12);
+  margin-bottom: $vr * 2;
+  @include mq ($bp-small) {
+    @include colspan (8);
+    @include colpush (2);
+  }
+  @include mq ($bp-medium) {
+    @include colspan (6);
+    &:nth-child(2n-1) {
+      clear: left;
+    }
+  }
+}

@@ -3,6 +3,7 @@ $black: #333333;
 $white: #fff;
 $off-white: #f0f0f0;
 $neutral: #c7c7c7;
+$neutral-dark: mix($neutral,$black,75%);
 // greens
 $dark: #011c1f; //#002342; //#001528;
 $medium: #003539;

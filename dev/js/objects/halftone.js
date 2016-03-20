@@ -65,8 +65,10 @@ var Dot = function (gridX, gridY, maxRadius, parent) {
 }
 Dot.prototype = {
   draw: function (ctx) {
-    ctx.moveTo(this.x, this.y - this.radius);
-    ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
+    if (this.radius > .5) {
+      ctx.moveTo(this.x, this.y - this.radius);
+      ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, false);
+    }
   },
   setRadiusByPercentage: function (percent) {
     this.radius = Math.max(0, Math.min(this.maxRadius, percent * this.maxRadius));
@@ -140,6 +142,7 @@ Halftone.prototype = {
     if (percentage == this.lastDrawnPercentage || !this.canvas || (percentage < this.settings.inEaseStart || percentage > this.settings.outEaseEnd)) {
       return false;
     }
+
     // clear current crap
     this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
 
@@ -194,11 +197,12 @@ Halftone.prototype = {
         _this.draw(_this.getPercentageFromScroll());
       }
     }
+
     // kill existing canvas
+    this.lastDrawnPercentage = null;
     var lastCanvas;
     if (this.canvas) {
       lastCanvas = this.canvas;
-      this.canvas.remove();
     }
 
     // create new canvas and dots
@@ -236,9 +240,12 @@ Halftone.prototype = {
     if (lastCanvas && lastCanvas.width === this.canvas.width && lastCanvas.height === this.canvas.height) {
       // stop remaking, it's the same!
       this.canvas = lastCanvas;
-      addCanvas();
+      //addCanvas();
       enableCanvas();
       return;
+    }
+    else if (lastCanvas) {
+      lastCanvas.remove();
     }
 
     // set the context
@@ -287,7 +294,7 @@ Halftone.prototype = {
     // determine image size
     if (this.image) {
       if (this.image.complete) {
-        this.sizeImage();
+        this.imageOffsets = this.sizeImage(this.image);
       }
       else {
         var _this = this;
@@ -363,7 +370,7 @@ Halftone.prototype = {
     }
   },
   getPercentageFromScroll: function () {
-    return this.scrollController ? this.scrollController.getPercentage() : this.settings.initialDrawPercentage;
+    return (this.scrollController && getBreakpoint() >= BREAKPOINT_FOR_SCROLL_CONTROL) ? this.scrollController.getPercentage() : this.settings.initialDrawPercentage;
   },
   init: function () {
     // make the canvas

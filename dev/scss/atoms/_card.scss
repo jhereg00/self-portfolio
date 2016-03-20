@@ -20,7 +20,7 @@
 .card__image {
   position: relative;
   width: calc(100% - #{$wr * 1.5});
-  margin: 0 $wr $vr * -6 $wr / 2;
+  margin: 0 $wr $vr * -4 $wr / 2;
   box-shadow: 2px 3px 0 $dark;
   z-index: 0;
 }
@@ -41,7 +41,8 @@
   position: relative;
   float: right;
   width: calc(66.66% + #{$wr / 2});
-  padding: $vr * 2 $wr * 2;
+  padding: $vr * 3 $wr * 2 $vr * 2;
+  margin-top: $vr * -1;
   box-sizing: border-box;
   background: $off-white;
   box-shadow: 2px 3px 0 $dark;
@@ -67,8 +68,8 @@
   position: relative;
   float: left;
   width: calc(33.33% + #{$wr / 2});
-  padding: $vr * 2 $wr * 2 $vr * 2 $wr;
-  margin: 0 $wr * -1 0 0;
+  padding: $vr * 3 $wr * 2 $vr * 2 $wr;
+  margin: $vr * -1 $wr * -1 0 0;
   box-sizing: border-box;
   background: $neutral;
   box-shadow: 2px 3px 0 $dark;

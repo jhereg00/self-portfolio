@@ -1,0 +1,12 @@
+<a href="/interactive/{{ article.slug }}" class="card">
+  <article>
+    <img src="/images/{{ article.masthead }}" alt="image representing {{ article.title }}" class="card__image">
+    <h1 class="card__title">{{ article.title }}</h1>
+    <div class="card__excerpt">{{ article.excerpt }}</div>
+    <ul class="card__roles">
+      {% for role in article.roles %}
+        <li>{{ role | title }}</li>
+      {% endfor %}
+    </ul>
+  </article>
+</a>

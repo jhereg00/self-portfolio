@@ -1,0 +1,13 @@
+// Controls Form
+.controls-form {
+  display: none;
+  @include mq ($bp-large) {
+    display: block;
+    margin-top: $vr * 3;
+  }
+
+  label {
+    display: block;
+    font-weight: bold;
+  }
+}

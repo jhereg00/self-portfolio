@@ -1,52 +1,42 @@
 // Toggle
-//
-// Really just a glorified checkbox.
-//
-// Markup:
-//   <label class="toggle__label" for="toggle-sample">Toggle</label>
-//   <label class="toggle" for="toggle-sample">
-//     <input type="checkbox" id="toggle-sample">
-//     <span class="toggle__dot"></span>
-//   </label>
-//
-// Styleguide 3.8
-$height: $vr * 1.5;
-$width: $wr * 3;
-.toggle {
+$border-radius: $vr / 4;
+.toggle-group {
   display: inline-block;
-  position: relative;
-  height: $height;
-  width: $width;
-  border-radius: $vr * .75;
-  background: rgba($medium, .5);
-  cursor: pointer;
-  vertical-align: middle;
-
-  input {
-    @extend .visuallyhidden;
+  margin: $vr $wr * 2;
+  background: $dark;
+  border-radius: $border-radius;
+  > :first-child {
+    border-radius: $border-radius $border-radius 0 0;
   }
-
-  // .light & {
-  //   background: rgba(black, .15);
-  // }
+  > :last-child {
+    border-radius: 0 0 $border-radius $border-radius;
+  }
 }
-.toggle__dot {
+.toggle {
   display: block;
-  position: absolute;
-  top: 2px; left: 2px;
-  width: $height - pxToRem(4);
-  height: $height - pxToRem(4);
-  border-radius: 50%;
-  background: $accent;
-  transition: all $transition-time $ease-soft;
+  position: relative;
+  background: $neutral;
+  cursor: pointer;
+  color: $black;
+  padding: $vr / 2 $wr * 2;
+  margin-bottom: 1px;
+  margin-right: 1px;
+  font-size: pxToRem(16);
+  transform: translate(-1px, -1.5px);
+  //box-shadow: 1px 1.5px 0 $dark;
+  transition: all $transition-time;
 
-  :checked + & {
-    //background: $navy;
-    left: $width - $height + pxToRem(2);
+  &:hover {
+    background: $light;
+    color: $white;
+    transform: translate(-2px, -3px);
+    //box-shadow: 2px 3px 0 $dark;
   }
-}
-.toggle__label {
-  @include small;
-  line-height: $height;
-  margin-right: $wr * .5;
+
+  &.active, &:active {
+    background: $neutral-dark;
+    color: $black;
+    transform: translate(0, 0);
+    //box-shadow: 0 1px 0 $dark;
+  }
 }

@@ -12,7 +12,12 @@
           <aside class="article__details">
             <div class="article__details-grid">
               <nav class="article__details-nav">
-                <a class="button" href="{{ entry.siteUrl }}" target="_blank"><div class="button__text">View Site</div></a>
+                {% if entry.siteUrl %}
+                  <a class="button" href="{{ entry.siteUrl }}" target="_blank"><div class="button__text">View Site</div></a>
+                {% endif %}
+                {% if entry.prototypeUrl %}
+                  <a class="button" href="{{ entry.prototypeUrl }}" target="_blank"><div class="button__text">View Prototype</div></a>
+                {% endif %}
               </nav>
               <div class="roles">
                 {% if entry.roles %}
@@ -36,18 +41,7 @@
             <nav class="relateds">
               <div class="relateds__inner">
                 {% for article in relatedEntries %}
-                  <a href="/interactive/{{ article.slug }}" class="card">
-                    <article>
-                      <img src="/images/{{ article.masthead }}" alt="image representing {{ article.title }}" class="card__image">
-                      <h1 class="card__title">{{ article.title }}</h1>
-                      <div class="card__excerpt">{{ article.excerpt }}</div>
-                      <ul class="card__roles">
-                        {% for role in article.roles %}
-                          <li>{{ role | title }}</li>
-                        {% endfor %}
-                      </ul>
-                    </article>
-                  </a>
+                  {% include '_partials/articleCard.html' %}
                 {% endfor %}
               </div>
             </nav>

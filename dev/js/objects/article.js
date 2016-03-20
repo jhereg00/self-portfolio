@@ -6,11 +6,12 @@
 var Halftone = require('objects/halftone');
 var ScrollController = require('lib/scrollController');
 var getScrollPos = require('lib/getScrollPos');
+var getBreakpoint = require('lib/breakpoints');
 var eases = require('lib/ease');
 
 // settings
 var HEADER_HALFTONE_SETTINGS = {
-  fade: 12,
+  fade: getBreakpoint() >= 2 ? 12 : 1,
   inEaseStart: .1
 }
 var INNER_HALFTONE_SETTINGS = {
@@ -44,6 +45,7 @@ var Article = function (element) {
   if (headerEl) {
     this.header = new Halftone(headerEl, HEADER_HALFTONE_SETTINGS);
     //this.header.animIn(1200);
+    window.header = this.header;
   }
 
   // init other halftones

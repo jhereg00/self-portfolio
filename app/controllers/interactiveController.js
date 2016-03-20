@@ -32,7 +32,7 @@ router.param('interactiveSlug', function (req, res, next, value) {
         relatedEntries.push(interactives[i].data)
     }
     res.locals.relatedEntries = relatedEntries;
-    
+
     next();
   }
   else {
@@ -43,6 +43,23 @@ router.param('interactiveSlug', function (req, res, next, value) {
 router.get('/interactive/:interactiveSlug', function (req, res) {
   // get the content
   res.render('_templates/article.html');
+});
+
+router.get('/interactive', function (req, res) {
+  var sort = req.param('sort') || req.cookies.sort || 'sexiness';
+  res.cookie('sort', sort, {
+    path: '/interactive',
+    expires: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365 ) // 1 year
+  });
+  res.locals.sort = sort;
+  var interactives = Interactive.getList(sort);
+  var articles = [];
+  for (var i = 0, len = interactives.length; i < len; i++) {
+    articles.push(interactives[i].data);
+  }
+  res.locals.articles = articles;
+
+  res.render('_templates/archive.html');
 });
 
 // export the router for use

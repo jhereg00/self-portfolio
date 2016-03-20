@@ -4,7 +4,7 @@ roles:
   - developer
 date: 2015-06-27
 sexiness: 4
-masthead: interactive/experience-onstar/experience-onstar.png
+masthead: interactive/experience-onstar/experience-onstar.jpg
 siteUrl: http://experienceonstar.com
 excerpt: |
   Modular design and development create an engaging blog with an editorial design.

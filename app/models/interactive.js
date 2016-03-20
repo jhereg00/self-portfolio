@@ -128,7 +128,7 @@ fs.watch(DATA_PATH, function (event, fileName) {
 // sort our lists
 function sortLists () {
   // sort by title
-  lists.title = allInteractive;
+  lists.title = allInteractive.slice(0);
   lists.title.sort(function (a,b) {
     if (a.data.title > b.data.title)
       return 1;
@@ -139,18 +139,18 @@ function sortLists () {
   });
 
   // sort by date
-  lists.date = allInteractive;
+  lists.date = allInteractive.slice(0);
   lists.date.sort(function (a,b) {
-    if (a.data.date > b.data.date)
+    if (a.data.date < b.data.date)
       return 1;
-    else if (a.data.date < b.data.date)
+    else if (a.data.date > b.data.date)
       return -1;
     else
       return 0;
   });
 
   // sort by sexiness, an arbritrary value of how much I like it
-  lists.sexiness = allInteractive;
+  lists.sexiness = allInteractive.slice(0);
   lists.sexiness.sort(function (a,b) {
     // high numbers first
     if (a.data.sexiness < b.data.sexiness)
@@ -159,9 +159,9 @@ function sortLists () {
       return -1;
     else {
       // fall back to date
-      if (a.data.date > b.data.date)
+      if (a.data.date < b.data.date)
         return 1;
-      else if (a.data.date < b.data.date)
+      else if (a.data.date > b.data.date)
         return -1;
       else
         return 0;

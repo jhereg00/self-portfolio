@@ -87,7 +87,8 @@
   'atoms/button',
   'atoms/lead-in',
   'atoms/card',
-  'atoms/logo'
+  'atoms/logo',
+  'atoms/toggle'
   ;
 
 // Molecules
@@ -118,7 +119,8 @@
   'organisms/nav-main',
   'organisms/footer-main',
   'organisms/header-main',
-  'organisms/my-titles'
+  'organisms/my-titles',
+  'organisms/controls-form'
   ;
 
 // Page
@@ -126,7 +128,8 @@
 // Huge scale layout things
 @import
   'page/global-container',
-  'page/article'
+  'page/article',
+  'page/archive'
   ;
 
 

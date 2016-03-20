@@ -7,6 +7,7 @@
 const express = require('express');
 const nunjucks = require('nunjucks');
 const morgan = require('morgan');
+const cookieParser = require('cookie-parser');
 
 // settings
 const ENV = process.env.NODE_ENV || 'development';
@@ -44,6 +45,8 @@ app.use(morgan(ENV === 'development' ? 'dev' : 'combined'));
 app.use(express.static('./public/', {
   index: false // don't send directory index
 }));
+// handle cookies
+app.use(cookieParser());
 // basic routes
 app.use(require('./app/controllers/index'));
 app.use(require('./app/controllers/interactiveController'));

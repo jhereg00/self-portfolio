@@ -1,5 +1,3 @@
-$width-margin: $wr * 4;
-$width-margin-large: $wr * 8;
 $outer-drop-shadow: 6px 8px 0 $dark;
 $inner-drop-shadow: 3px 4px 0 $dark;
 $magic-angle-calc: calc((100vw - #{2 * $width-margin}) / 12);
@@ -13,9 +11,8 @@ $header-height: 50vh;
   position: relative;
   color: $black;
   padding-top: $header-height;
-  max-width: pxToRem(1680);
+  max-width: $site-max-width + $width-margin-large * 2;
   margin: 0 auto $vr * 4;
-  animation: margin-top-away 3s forwards;
   z-index: 1;
 }
 .article__header {

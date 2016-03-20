@@ -1,0 +1,48 @@
+{% set title = entry.title %}
+{% set pageType = 'article' %}
+
+{% extends '_layout.html' %}
+
+{% block content %}
+
+  <div class="archive">
+    <div class="archive__inner">
+      <div class="archive__controls">
+        <h1 class="h2">Interactive</h1>
+        <form class="controls-form">
+          <div class="controls-form__group">
+            <label for="sort">Sort By:</label>
+            <div class="toggle-group">
+              <a href="/interactive?sort=sexiness" class="toggle{% if sort == 'sexiness' %} active{% endif %}">Sexiness</a>
+              <a href="/interactive?sort=date" class="toggle{% if sort == 'date' %} active{% endif %}">Launch Date</a>
+              <a href="/interactive?sort=title" class="toggle{% if sort == 'title' %} active{% endif %}">Title</a>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="archive__list-container">
+        <ul class="archive__list">
+          {% for article in articles %}
+            <li class="archive__list-item">{% include '_partials/articleCard.html' %}</li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <div class="dev-grid">
+        <div class="dev-grid__column"></div>
+        <div class="dev-grid__column"></div>
+        <div class="dev-grid__column"></div>
+        <div class="dev-grid__column"></div>
+        <div class="dev-grid__column"></div>
+        <div class="dev-grid__column"></div>
+        <div class="dev-grid__column"></div>
+        <div class="dev-grid__column"></div>
+        <div class="dev-grid__column"></div>
+        <div class="dev-grid__column"></div>
+        <div class="dev-grid__column"></div>
+        <div class="dev-grid__column"></div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
