@@ -1,19 +1,19 @@
-// @keyframes rotate-cw {
-//   0% {
-//     transform: rotate(0);
-//   }
-//   100% {
-//     transform: rotate(360deg);
-//   }
-// }
-// @keyframes rotate-ccw {
-//   0% {
-//     transform: rotate(0);
-//   }
-//   100% {
-//     transform: rotate(-360deg);
-//   }
-// }
+@keyframes rotate-cw {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotate-ccw {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
 //
 // @keyframes fadeIn {
 //   to {
@@ -142,3 +142,9 @@
 //     transform: none;
 //   }
 // }
+
+@keyframes fade-to-light {
+  50% {
+    color: $light;
+  }
+}

@@ -11,7 +11,7 @@ var eases = require('lib/ease');
 // settings
 var HEADER_HALFTONE_SETTINGS = {
   fade: 12,
-  maxRadius: 16
+  maxRadius: 20
 }
 var INNER_HALFTONE_SETTINGS = {
   fade: 0,
@@ -41,7 +41,7 @@ var Article = function (element) {
   var headerEl = element.querySelector('.article__header');
   if (headerEl) {
     this.header = new Halftone(headerEl, HEADER_HALFTONE_SETTINGS);
-    this.header.animIn(1200);
+    //this.header.animIn(1200);
   }
 
   // init other halftones
@@ -113,4 +113,6 @@ Article.prototype = {
 }
 
 // temp init article
-window.article = new Article(document.querySelector('.article'));
+var articleEl = document.querySelector('.article');
+if (articleEl)
+  new Article(document.querySelector('.article'));

@@ -29,8 +29,8 @@
   }
   margin-left: auto;
   margin-right: auto;
-  padding-left: $wr;
-  padding-right: $wr;
+  padding-left: $gutter / 2;
+  padding-right: $gutter / 2;
 }
 @mixin subgridContainer ($gutter: $wr * 2) {
   @extend %clear-fix;

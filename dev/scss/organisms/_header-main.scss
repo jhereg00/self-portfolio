@@ -1,0 +1,48 @@
+// Main Header
+.header-main {
+  @extend %clear-fix;
+  position: relative;
+  z-index: 8675309;
+  background: white;
+  padding: $vr $wr * 2;
+  box-shadow: 0 9px 0 $dark; // use shadow so it doesn't take up real space
+  color: $medium;
+
+  [data-page-type='index'] & {
+    padding: $vr * 1.5 $wr * 2;
+  }
+}
+.header-main__link {
+  display: block;
+  float: left;
+  @extend %clear-fix;
+  //filter: drop-shadow(1px 1.5px 0 $dark);
+  > * {
+    float: left;
+  }
+
+  &:hover {
+    $spin-time: $transition-time * 1.5;
+    .logo__main {
+      animation: rotate-cw $spin-time 1 linear;
+    }
+    .logo__inner {
+      animation: rotate-ccw $spin-time / 2 2 linear;
+    }
+    .logo__outer {
+      animation: rotate-ccw $spin-time 1 linear;
+    }
+  }
+}
+.header-main__title {
+  @include h3;
+  margin: $vr * .75 0 0 $wr;
+  white-space: nowrap;
+
+  [data-page-type='index'] & {
+    @include mq ($bp-small) {
+      @include h2;
+      margin-top: $vr * 3;
+    }
+  }
+}

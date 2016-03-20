@@ -86,7 +86,8 @@
   'atoms/pull-quote',
   'atoms/button',
   'atoms/lead-in',
-  'atoms/card'
+  'atoms/card',
+  'atoms/logo'
   ;
 
 // Molecules
@@ -113,7 +114,11 @@
 //
 // Styleguide 5.0
 @import
-  'organisms/relateds'
+  'organisms/relateds',
+  'organisms/nav-main',
+  'organisms/footer-main',
+  'organisms/header-main',
+  'organisms/my-titles'
   ;
 
 // Page

@@ -6,7 +6,7 @@ roles:
   - animator
 date: 2015-11-06
 sexiness: 5
-masthead: interactive/a-race-against-time.jpg
+masthead: interactive/a-race-against-time/a-race-against-time.jpg
 siteUrl: http://www.experienceonstar.com/view/a-race-against-time
 excerpt: A tense story that was turned into a suspenseful experience for readers.
 ---

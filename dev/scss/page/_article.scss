@@ -16,6 +16,7 @@ $header-height: 50vh;
   max-width: pxToRem(1680);
   margin: 0 auto $vr * 4;
   animation: margin-top-away 3s forwards;
+  z-index: 1;
 }
 .article__header {
   position: absolute;

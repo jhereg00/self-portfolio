@@ -1,175 +1,42 @@
 // Main Navigation
 //
 
-$start-offset: $vr * 5;
 .nav-main {
-  @include small;
-  @include font-tertiary;
-  position: fixed;
-  top: 0; left: 0; bottom: 0;
-  padding-top: $vr * 4;
-  width: $nav-width;
-  z-index: 8675309;
-  overflow: hidden;
-  background: $dark;
-  border-right: 1px solid $medium;
-  transform: translateX(-100%);
-  transition: transform $transition-time $ease-soft, width $transition-time * 1.666 $ease-soft;
-
-  &::before, &::after {
-    content: '';
-    position: absolute;
-    left: 0; right: 0; bottom: 0;
-    height: $start-offset;
-    background: linear-gradient(to top, $dark, transparent);
-    pointer-events: none;
-    z-index: 2;
-  }
-  &::before {
-    top: $vr * 4; bottom: auto;
-    background: linear-gradient(to bottom, $dark, transparent);
-  }
-
-  @include mq ($bp-medium) {
-    transform: none;
-    padding-top: 0;
-    &::before {
-      top: 0;
-    }
-  }
-}
-.nav-main__list {
   position: relative;
-  margin: 0 -16px 0 0;
-  padding: $start-offset 0;
-  max-height: 100%;
-  overflow: auto;
-  box-sizing: border-box;
-  list-style-type: none;
-
-  &.no-scrollbar {
-    margin-right: 0;
-  }
+  z-index: 8675309;
+  @include gridContainer(0);
+  background: $dark;
 }
-.nav-main__item {
-  margin: 0;
-  padding: 0;
-}
-.nav-main__link {
-  display: block;
+.nav-main__section {
   text-decoration: none;
-  padding: $vr $wr;
-  border-right: $wr / 4 solid transparent;
   color: $light;
-  font-weight: 300;
-  transition: all $transition-time $ease-soft;
-  &.active, &:hover {
-    color: $white;
-    background: rgba(black,.25);
-    //border-right: $wr / 4 solid $accent;
-  }
-}
-.nav-main__active-indicator {
-  display: block;
-  position: absolute;
-  top: $vr * -2;
-  left: 0;
-  height: $vr * 2;
-  width: $wr / 4;
-  background: $accent;
-  transition: all $transition-time * 2 $ease-soft;
-}
+  transition: all $transition-time;
+  @include mq ($bp-medium) {
+    padding: $vr * 4 $wr * 4;
+    min-height: calc(50vh - #{$vr * 5});
+    border-right: 1px solid $medium;
+    @include colspan (1,3,0);
 
-.nav-main__utility {
-  @extend .nav-main__link;
-
-  color: $accent;
-
-  &:before {
-    content: "";
-    float: left;
-    margin-right: 0.666em;
-    height: 1em;
-    width: 1em;
-    display: block;
-    background: transparent url('data:image/svg+xml;utf8,<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="0 0 119.3 155.7" enable-background="new 0 0 119.3 155.7" xml:space="preserve"><path fill="none" stroke="#7FD5FF" stroke-width="4" stroke-miterlimit="10" d="M94.7,151H26.1c-11.1,0-20.2-9-20.2-20.2V89.4c0-11.1,9-20.2,20.2-20.2h68.6c11.1,0,20.2,9,20.2,20.2v41.4C114.9,141.9,105.9,151,94.7,151z"/><path fill="none" stroke="#7FD5FF" stroke-width="4" stroke-miterlimit="10" d="M23.2,69.1v-27C23.2,21.6,39.9,5,60.4,5 s37.2,16.6,37.2,37.2v3.2"/><line fill="none" stroke="#7FD5FF" stroke-width="4" stroke-miterlimit="10" x1="96.7" y1="112" x2="24.1" y2="112"/></svg>') no-repeat center center;
-  }
-}
-.nav-main__utility:first-child{
-  margin-top: 2em;
-}
-
-// sliding out on mobile
-.nav-open {
-  .nav-main {
-    transform: none;
-  }
-}
-
-
-// Nav spin reveal
-
-
-.nav-main {
-  perspective: 1200px;
-  &:before,
-  &:after {
-    transition: all $transition-time * 2 $ease-soft;
-    transition-delay: 100ms;
-  }
-}
-
-.nav-cube {
-  margin: 0;
-  padding: 0;
-  transform-style: preserve-3d;
-  transform: rotateY(0);
-  transition: all $transition-time * 3 cubic-bezier(0.335, 0.055, 0.210, 1.370);
-}
-
-.nav-main__list {
-  transform: rotateY(0deg) translateZ(6em) scale(0.935);
-}
-
-.nav-main__modal {
-  // transform: rotateY(-90deg);
-}
-
-.nav-spin {
-  .nav-cube {
-    transform: rotateY(-90deg) translateZ(5em);
-  }
-
-  .nav-main__list {
-    max-width: 9rem;
-  }
-
-  .nav-main {
-    width: 18rem;
-    &:before,
-    &:after {
-      opacity:0;
-      transition-delay: 0;
+    .h2 {
+      margin-left: $wr * -2;
     }
   }
-  .nav-main__modal {
-    opacity: 1;
+
+  &:hover {
+    a {
+      color: $white;
+    }
+  }
+
+  > :first-child {
+    margin-top: 0;
+  }
+  > :last-child {
+    margin-bottom: 0;
   }
 }
-
-.nav-main__modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 20em;
-  margin: 0;
-  padding: 1rem;
-  background-color: $orange;
-  display: block;
-
-  transform: rotateY(90deg) translateZ(16em) translateX(-5.5em) scale(0.949);
-  transform-origin: left;
-  backface-visibility: visible;
-
+a.nav-main__section {
+  &:hover {
+    color: $white;
+  }
 }

@@ -1,51 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Portfolio of Glenn Martin</title>
+{% set pageType = 'index' %}
+{% extends '_layout.html' %}
 
-  <link rel="stylesheet" href="/css/styles.css">
-</head>
-<body>
-  <div class="global-container">
-    <article class="article">
-      <header class="article__header" style="background-image: url(/images/fpo.jpg)"></header>
-      <div class="article__inner">
-        <h1>Article Header</h1>
-        <div class="article__content">
-          <div class="text">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Itaque, repellat, sequi! Eaque, alias nulla sit facere optio ut libero? Amet sed accusantium culpa harum recusandae quas nam, soluta reiciendis quis.</p>
-          </div>
-          <div class="h3 left halftone"><span>This is Only A Test</span></div>
-          <div class="text">
-            <p>Quam, voluptatum culpa sint provident explicabo modi illum molestiae nisi laboriosam hic inventore repudiandae doloremque voluptatibus ad eligendi corporis consectetur quisquam ducimus dignissimos ipsam fuga minus ut. Delectus, quod, assumenda.</p>
-            <p>Facilis minima culpa rem aut accusantium provident ab, numquam repellat eveniet, voluptas nulla recusandae earum tenetur iure pariatur. Deleniti, accusantium excepturi ut tempora repellat rerum maiores. Aut hic temporibus a!</p>
-          </div>
-          <div class="h3 breakout-left breakout-right">This is Only A Test</div>
-          <div class="h3 right">This is Only A Test</div>
-          <div class="text">
-            <p>Quam, voluptatum culpa sint provident explicabo modi illum molestiae nisi laboriosam hic inventore repudiandae doloremque voluptatibus ad eligendi corporis consectetur quisquam ducimus dignissimos ipsam fuga minus ut. Delectus, quod, assumenda.</p>
-            <p>Facilis minima culpa rem aut accusantium provident ab, numquam repellat eveniet, voluptas nulla recusandae earum tenetur iure pariatur. Deleniti, accusantium excepturi ut tempora repellat rerum maiores. Aut hic temporibus a!</p>
-          </div>
-        </div>
-        <div class="dev-grid">
-          <div class="dev-grid__column"></div>
-          <div class="dev-grid__column"></div>
-          <div class="dev-grid__column"></div>
-          <div class="dev-grid__column"></div>
-          <div class="dev-grid__column"></div>
-          <div class="dev-grid__column"></div>
-          <div class="dev-grid__column"></div>
-          <div class="dev-grid__column"></div>
-          <div class="dev-grid__column"></div>
-          <div class="dev-grid__column"></div>
-          <div class="dev-grid__column"></div>
-          <div class="dev-grid__column"></div>
-        </div>
-      </div>
-    </article>
-  </div>
-
-  <script src="/js/scripts.js"></script>
-</body>
-</html>
+{% block content %}
+  <ul class="my-titles">
+    <li class="my-titles__title major">Interactive Media Artist</li>
+    <li class="my-titles__title">Web Developer</li>
+    <li class="my-titles__title">Digital Creator</li>
+    <li class="my-titles__title">Web Designer</li>
+    <li class="my-titles__title">Illustrator</li>
+    <li class="my-titles__title">Web Animator</li>
+    <li class="my-titles__title minor">Musician</li>
+    <li class="my-titles__title minor">Geek</li>
+    <li class="my-titles__title minor">Goalie</li>
+  </ul>
+{% endblock %}

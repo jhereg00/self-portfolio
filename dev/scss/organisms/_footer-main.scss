@@ -1,33 +1,10 @@
 // Main Footer
-//
-// Just has the gnome, as an indicator that the user has finished the page.
-$gnome-size: 20vh;
 .footer-main {
   position: relative;
-  margin: -1 * $gnome-size 0 0 0;
-  padding: 0;
-  height: $gnome-size;
-  overflow: hidden;
-
-  .logo-container {
-    top: auto;
-    bottom: 0;
-    z-index: 0;
-  }
-
-  .index & {
-    display: none;
-  }
 }
-.footer-main__gnome {
-  position: absolute;
-  right: $wr * 4;
-  bottom: 0;
-  max-height: $gnome-size;
-  transition: transform $transition-time * 4 ease-in-out, padding $transition-time * 4 ease-in-out;
-  &:hover {
-    transform: translateY(45%);
-    padding-top: $gnome-size * .9;
-    transition-duration: $transition-time / 2;
-  }
+.footer-main__halftone {
+  // position: absolute;
+  top: 0; left: 0; right: 0;
+  height: $vr * 4;
+  background: $dark;
 }

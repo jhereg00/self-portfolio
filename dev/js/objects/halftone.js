@@ -24,7 +24,8 @@ var DEFAULTS = {
   imageSizing: 'cover', // 'cover' or 'contain'
   cornering: 0, // diagnal top left fade
   control: 'scroll', // 'scroll', 'mouse' (TODO), or 'none'
-  fill: null // optionally override fill color
+  fill: null, // optionally override fill color
+  initialDrawPercentage: .55 // percentage to draw right away
 }
 var BREAKPOINT_FOR_SCROLL_CONTROL = 2;
 
@@ -85,13 +86,24 @@ Dot.prototype = {
  *  @method destroy()
  *  @method animIn({animation time in ms})
  */
-var Halftone = function (element, settings) {
+var Halftone = function (element, settings, dotSizeImage) {
+  var _this = this;
   this.element = element;
   this.settings = {};
   settings = settings || {};
   for (var prop in DEFAULTS) {
     this.settings[prop] = settings[prop] !== undefined ? settings[prop] : DEFAULTS[prop];
   }
+
+  if (dotSizeImage) {
+    this.dotSizeImage = new Image();
+    this.dotSizeImage.src = dotSizeImage;
+    this.dotSizeImage.onload = function () {
+      _this.sizeDotsByImage();
+      _this.draw(_this.getPercentageFromScroll());
+    }
+  }
+
 
   var computedStyle = getComputedStyle(this.element);
   // make sure positioning is valid
@@ -108,7 +120,6 @@ var Halftone = function (element, settings) {
     this.element.style.background = 'none';
 
   // listeners
-  var _this = this;
   this.onResize = function () {
     _this.createCanvas();
   }
@@ -137,10 +148,12 @@ Halftone.prototype = {
     effectiveOutPerc = effectiveOutPerc > 0 ? this.settings.outEaseFn(2,-3,effectiveOutPerc) : 2;
 
     for (var i = 0, len = this.dots.length; i < len; i++) {
-      var dotInPerc = effectiveInPerc - this.dots[i].percentage;
-      var dotOutPerc = effectiveOutPerc - (1 - this.dots[i].percentage);
-      this.dots[i].setRadiusByPercentage(Math.min(dotInPerc,dotOutPerc));
-      this.dots[i].draw(this.ctx);
+      if (this.dots[i].maxRadius > .5) {
+        var dotInPerc = effectiveInPerc - this.dots[i].percentage;
+        var dotOutPerc = effectiveOutPerc - (1 - this.dots[i].percentage);
+        this.dots[i].setRadiusByPercentage(Math.min(dotInPerc,dotOutPerc));
+        this.dots[i].draw(this.ctx);
+      }
     }
 
     this.ctx.fill();
@@ -244,10 +257,14 @@ Halftone.prototype = {
       else {
         var _this = this;
         this.image.onload = function () {
-          _this.sizeImage();
+          _this.imageOffsets = _this.sizeImage(_this.image);
           _this.draw(_this.getPercentageFromScroll());
         }
       }
+    }
+
+    if (this.dotSizeImage && this.dotSizeImage.complete) {
+      this.sizeDotsByImage();
     }
 
     // establish scroll based controls only if screen is large enough for us to care
@@ -262,31 +279,65 @@ Halftone.prototype = {
       this.draw(this.getPercentageFromScroll());
     }
   },
-  sizeImage: function () {
+  sizeImage: function (image) {
     // make sure we successfully loaded
-    if (!this.image.width || !this.image.height) {
-      this.imageOffsets = null;
+    if (!image.width || !image.height) {
       return false;
     }
 
     // figure out the scale to match 'cover' or 'contain', as defined by settings
-    var scale = this.canvas.width / this.image.width;
-    if (this.settings.imageSizing === 'cover' && scale * this.image.height < this.canvas.height) {
-      scale = this.canvas.height / this.image.height;
+    var scale = this.canvas.width / image.width;
+    if (this.settings.imageSizing === 'cover' && scale * image.height < this.canvas.height) {
+      scale = this.canvas.height / image.height;
     }
-    else if (this.settings.imageSizing === 'contain' && scale * this.image.height > this.canvas.height) {
-      scale = this.canvas.height / this.image.height;
+    else if (this.settings.imageSizing === 'contain' && scale * image.height > this.canvas.height) {
+      scale = this.canvas.height / image.height;
     }
     // save the x,y,width,height of the scaled image so it can be easily drawn without math
-    this.imageOffsets = {
-      x: (this.canvas.width - this.image.width * scale) / 2,
-      y: (this.canvas.height - this.image.height * scale) / 2,
-      width: this.image.width * scale,
-      height: this.image.height * scale
+    return {
+      x: (this.canvas.width - image.width * scale) / 2,
+      y: (this.canvas.height - image.height * scale) / 2,
+      width: image.width * scale,
+      height: image.height * scale
+    }
+  },
+  sizeDotsByImage: function () {
+    // first, figure out how to size the image for the canvas
+    var dotsImageOffsets = this.sizeImage(this.dotSizeImage);
+    if (!dotsImageOffsets) {
+      return;
+    }
+
+    var tempCan = document.createElement('canvas');
+    tempCan.width = this.canvas.width;
+    tempCan.height = this.canvas.height;
+    var tempCanCtx = tempCan.getContext('2d');
+    tempCanCtx.fillStyle = 'white';
+    tempCanCtx.fillRect(0, 0, tempCan.width, tempCan.height);
+    tempCanCtx.drawImage(this.dotSizeImage, dotsImageOffsets.x, dotsImageOffsets.y, dotsImageOffsets.width, dotsImageOffsets.height);
+
+    for (var i = this.dots.length - 1; i >= 0; i--) {
+      var imgData = tempCanCtx.getImageData(this.dots[i].x - this.settings.maxRadius, this.dots[i].y - this.settings.maxRadius, this.settings.maxRadius * 2, this.settings.maxRadius * 2);
+      //console.log(this.dots[i].x - this.settings.maxRadius, this.dots[i].y - this.settings.maxRadius, this.settings.maxRadius * 2, this.settings.maxRadius * 2);
+      // only getting red, because image should be greyscale anyway
+      var averageRed = 0;
+      for (var j = 0, jLen = imgData.data.length; j < jLen; j += 4) {
+        var opacityAdd = (255 - imgData.data[j]) * ((255 - imgData.data[j + 3]) / 255);
+        averageRed += imgData.data[j] + opacityAdd;
+        // if (j < 400)
+        //   console.log(imgData.data[j], opacityAdd, imgData.data[j] + opacityAdd);
+      }
+      averageRed /= (imgData.data.length / 4);
+
+      this.dots[i].maxRadius = this.dots[i].maxRadius * ((255 - averageRed) / 255);
+      // remove this dot if it will never show
+      if (this.dots[i].maxRadius < .5) {
+        this.dots.splice(i,1);
+      }
     }
   },
   getPercentageFromScroll: function () {
-    return this.scrollController ? this.scrollController.getPercentage() : .55;
+    return this.scrollController ? this.scrollController.getPercentage() : this.settings.initialDrawPercentage;
   },
   init: function () {
     // make the canvas

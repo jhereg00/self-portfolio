@@ -7,7 +7,7 @@ sexiness: 4
 masthead: interactive/experience-onstar/experience-onstar.png
 siteUrl: http://experienceonstar.com
 excerpt: |
-  Modular design and development create an engaging blog with an editorial feel.
+  Modular design and development create an engaging blog with an editorial design.
 ---
 
 <p class="h3">Winner of a Gold 2015 [Pearl Award](http://thecontentcouncil.org/Pearl-Awards) for Best Blog/Series of Blog Posts.</p>

@@ -5,4 +5,7 @@
  *  parts of the library we need.
  */
 // objects
+require('objects/scrollOnLoad');
 require('objects/article');
+require('objects/footer');
+require('objects/myTitles');

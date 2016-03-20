@@ -1,0 +1,84 @@
+// My Titles toy
+.my-titles {
+  min-height: calc(50vh - #{$vr * 5});
+  margin: 0;
+  padding: 0;
+  position: relative;
+  list-style-type: none;
+  backface-visibility: hidden;
+
+  canvas {
+    z-index: -1;
+  }
+}
+.my-titles__title {
+  @include font-secondary;
+  @include h3;
+  margin: $vr * 2 $wr;
+  text-align: center;
+  text-shadow: 2px 3px 0 $dark;
+  animation: fade-to-light 6s infinite alternate;
+  $animation-duration-min: 6s;
+  $animation-duration-variance: 4s;
+
+  &:nth-of-type(1) {
+    top: 50%; left: 50%;
+    animation-duration: $animation-duration-min + random($animation-duration-variance);
+    animation-delay: -1 * random($animation-duration-min + $animation-duration-variance);
+  }
+  &:nth-of-type(2) {
+    top: 30%; left: 30%;
+    animation-duration: $animation-duration-min + random($animation-duration-variance);
+    animation-delay: -1 * random($animation-duration-min + $animation-duration-variance);
+  }
+  &:nth-of-type(3) {
+    top: 25%; left: 75%;
+    animation-duration: $animation-duration-min + random($animation-duration-variance);
+    animation-delay: -1 * random($animation-duration-min + $animation-duration-variance);
+  }
+  &:nth-of-type(4) {
+    top: 70%; left: 73%;
+    animation-duration: $animation-duration-min + random($animation-duration-variance);
+    animation-delay: -1 * random($animation-duration-min + $animation-duration-variance);
+  }
+  &:nth-of-type(5) {
+    top: 75%; left: 45%;
+    animation-duration: $animation-duration-min + random($animation-duration-variance);
+    animation-delay: -1 * random($animation-duration-min + $animation-duration-variance);
+  }
+  &:nth-of-type(6) {
+    top: 85%; left: 20%;
+    animation-duration: $animation-duration-min + random($animation-duration-variance);
+    animation-delay: -1 * random($animation-duration-min + $animation-duration-variance);
+  }
+  &:nth-of-type(7) {
+    top: 65%; left: 25%;
+    animation-duration: $animation-duration-min + random($animation-duration-variance);
+    animation-delay: -1 * random($animation-duration-min + $animation-duration-variance);
+  }
+  &:nth-of-type(8) {
+    top: 35%; left: 55%;
+    animation-duration: $animation-duration-min + random($animation-duration-variance);
+    animation-delay: -1 * random($animation-duration-min + $animation-duration-variance);
+  }
+  &:nth-of-type(9) {
+    top: 85%; left: 80%;
+    animation-duration: $animation-duration-min + random($animation-duration-variance);
+    animation-delay: -1 * random($animation-duration-min + $animation-duration-variance);
+  }
+
+  &.major {
+    @include h2;
+  }
+  &.minor {
+    @include body;
+    color: mix($neutral,$black,50%);
+  }
+
+  @include mq ($bp-small) {
+    position: absolute;
+    transform: translate3d(-50%, -50%, 0);
+    margin: 0;
+    white-space: nowrap;
+  }
+}

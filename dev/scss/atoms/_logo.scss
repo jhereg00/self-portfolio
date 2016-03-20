@@ -1,31 +1,61 @@
-// Logo
+//  Logo
 //
-// Logo link.  Offset so the type in the logo aligns to the left of the link box.
-//
-// Markup:
-//   <a href="/" class="logo"><img src="/images/logo-travelocity.svg" alt="Travelocity Logo"></a>
-//
-// Styleguide 3.3
+//  Site logo.  Just an inline svg, except that it can animate while something is loading!
+@mixin logoSizing ($height) {
+  width: $height;
+  height: $height;
+  margin: -.075 * $height 0 -.146 * $height -.112 * $height;
+}
+$spin-time: 2s;
 .logo {
-  display: inline-block;
-  img {
-    display: inline-block;
-    width: 144px;
-    max-width: none;
-    margin-left: -30px;
-  }
-}
-.logo-svg {
   display: block;
-  min-width: 144px;
-  width: 100%;
-  height: auto;
-  padding: 8.2%;
-  box-sizing: border-box;
+  position: relative;
+  @include logoSizing($vr * 4);
+  transition: height 1s, margin 1s;
 
-  .min-size & {
-    width: 144px;
-    margin: 8.2% auto;
-    padding: 0;
+  div {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0; left: 0;
+  }
+
+  [data-page-type='index'] & {
+    @include mq ($bp-small) {
+      @include logoSizing($vr * 8);
+    }
   }
 }
+
+.logo__main, .logo__outer, .logo__inner {
+  transform: rotate(0deg);
+  transform-origin: 50% 50%;
+}
+.logo__inner {
+  transform-origin: 50% 53.75%;
+  svg {
+    transform: translateZ(-10px);
+  }
+}
+.logo__outer svg {
+  transform: translateZ(-5px);
+}
+
+// colorize it
+.logo__path-outer, .logo__path-middle {
+  fill: $medium;
+}
+.logo__path-inner {
+  fill: $light;
+}
+
+// spin once on load
+// .logo__main {
+//   animation: rotate-cw $spin-time 1 ease-out $spin-time / -2;
+// }
+// .logo__inner {
+//   animation: rotate-ccw $spin-time / 2 2 ease-out $spin-time / -2;
+// }
+// .logo__outer {
+//   animation: rotate-ccw $spin-time 1 ease-out $spin-time / -2;
+// }
