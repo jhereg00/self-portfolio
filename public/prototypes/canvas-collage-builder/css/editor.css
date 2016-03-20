@@ -1,0 +1,33 @@
+/*
+ * styles unique to the editor page
+*/
+
+#instPt2, #submission, #backToTemplates { display: none; }
+#backToTemplates { float: right; margin-left: 1em; }
+
+.state1 #instPt2, .state1 #submission, .state1 #backToTemplates { display: block; }
+.state1 #instPt1 { display: none; }
+
+#allTemplates .canvasContainer { width: 47%; padding-right: 3%; float: left; margin-bottom: 3%; }
+#allTemplates .canvasContainer:nth-child(2n) { padding-left: 3%; padding-right: 0; }
+#allTemplates canvas { max-width: 100%; cursor: pointer; box-shadow: 0 0 6px #bbb; }
+#allTemplates {
+	-webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+#allTemplates .canvasContainer.active { padding: 0 !important; width: 100%; }
+#allTemplates .canvasContainer.inactive { display: none; }
+
+#file-upload { display: none; }
+
+@media only screen and (min-width: 720px) {
+    #allTemplates .canvasContainer { width: 30.33%; padding-right: 3%; }
+    #allTemplates .canvasContainer:nth-child(3n+2) { padding-left: 1.5%; padding-right: 1.5%; }
+    #allTemplates .canvasContainer:nth-child(3n+3) { padding-left: 3%; padding-right: 0; float: right; }
+}

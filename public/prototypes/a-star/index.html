@@ -1,0 +1,262 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+	<script type="text/javascript" src="a-star.js"></script>
+	<script type="text/javascript" src="iso-display.js"></script>
+
+	<script type="text/javascript">
+
+	var blocker;
+	var pc;
+	var pcSprite;
+	var displayOffset = { x : 0, y : 20 };
+	var pcTravelPath = [];
+	var pcNode = 0;
+	var pcSpeed = 3; // tiles per second.  yes, really, the math gets done below
+	var tiles = [];
+	var objects = [];
+	var animating = false;
+
+	var startTime, beforeTime, afterTime, timeDelta;
+
+	window.onload = function(){
+		defineCanvas('game_canvas'); // from a-star.js
+		blocker = new Sprite('blocker2.png',0,50,37);
+		pcSprite = new Sprite('pc-sprite2.png',0,30,33,5);
+		pc = new IsoObject(null,pcSprite);
+		makeTiles();
+
+		ctx.translate(0,20);
+
+		var checkX = 0;
+		while( true ){
+			if( getNode(checkX,0).walkable ) break;
+			checkX++;
+		}
+		pc.setParent( getTile(checkX,0) );
+		pcSprite.setOffset(0,-5);
+
+		startTime = new Date().getTime();
+		beforeTime = startTime;
+		afterTime = startTime;
+
+		addListeners();
+
+		window.setInterval(run,50);
+	}
+
+	function makeTiles() {
+		for( var y = 0; y < rows; y++ ){
+			for( var x = 0; x < cols; x++ ){
+				var obj = (Math.random() < .2 ? new IsoObject(null,blocker) : null );
+				tiles.push( new Tile(x,y,0,null,obj) );
+				// make a corresponding node
+				nodes.push( new Node(x,y,(obj ? false : true)) );
+			}
+		}
+	}
+	function drawTiles() {
+		for( var t = 0; t < tiles.length; t++ ){
+			tiles[t].draw();
+		}
+	}
+	function drawObjects() {
+		objects.sort( function( a , b ){ return a.drawOrder - b.drawOrder } );
+
+		var len = objects.length;
+		for( var i = 0; i < len; i++ ){
+			objects[i].draw();
+		}
+	}
+
+	var run = function() {
+		ctx.translate( -1*displayOffset.x , -1*displayOffset.y );
+		ctx.clearRect(0,0,canvasSize.width,canvasSize.height);
+		ctx.translate( displayOffset.x , displayOffset.y );
+
+		timeDelta = 50;// time since last update started.  a set number since we're using setInterval
+		//beforeTime = new Date().getTime();
+
+		updatePcPos();
+
+		drawTiles();
+		drawObjects();
+
+		//console.log( pc );
+		afterTime = new Date().getTime();
+	}
+	var updatePcPos = function() {
+		if( !animating ) return;
+		if( pcTravelPath && pcNode <= pcTravelPath.length ){
+			if( pcSprite.offsetX != 0 || pcSprite.offsetY != -5 ){
+				var movex = TILE_WIDTH * pcSpeed * timeDelta / 1000;
+				var movey = TILE_HEIGHT * pcSpeed * timeDelta / 1000;
+
+				if( pcSprite.facing % 2 == 1 ){
+					// diagonal
+					movex = movex/2;
+					movey = movey/2;
+				}
+
+				if( pcSprite.offsetX < 0 ) pcSprite.offsetX = Math.min(0, pcSprite.offsetX + movex);
+				else if( pcSprite.offsetX > 0 ) pcSprite.offsetX = Math.max(0, pcSprite.offsetX - movex);
+
+				if( pcSprite.offsetY < -5 ) pcSprite.offsetY = Math.min(-5, pcSprite.offsetY + movey);
+				else if( pcSprite.offsetY > -5 ) pcSprite.offsetY = Math.max(-5, pcSprite.offsetY - movey);
+
+			}
+			else {
+				if( pcTravelPath[pcNode+1] ){
+					var oldTile = pc.parentTile;
+					pcNode++;
+					var newTile = getTile( pcTravelPath[pcNode].x , pcTravelPath[pcNode].y );
+					// figure out direction
+					var dir;
+					var yChange = newTile.y - oldTile.y;
+					var xChange = newTile.x - oldTile.x;
+
+					switch ( yChange ) {
+						case -1:
+							switch ( xChange ) {
+								case -1:
+									dir = 0;
+									pcSprite.offsetX = 0;
+									pcSprite.offsetY = TILE_HEIGHT;
+									break;
+								case 0:
+									dir = 1;
+									pcSprite.offsetX = -1 * TILE_WIDTH/2;
+									pcSprite.offsetY = TILE_HEIGHT/2;
+									break;
+								case 1:
+									dir = 2;
+									pcSprite.offsetX = -1 * TILE_WIDTH;
+									pcSprite.offsetY = 0;
+									break;
+								default:
+									throw " pc path failure at " + newTile.x + " , " + newTile.y;
+									break;
+							}
+							break;
+						case 0:
+							switch ( xChange ){
+								case -1:
+									dir = 7;
+									pcSprite.offsetX = TILE_WIDTH/2;
+									pcSprite.offsetY = TILE_HEIGHT/2;
+									break;
+								case 1:
+									dir = 3;
+									pcSprite.offsetX = -1 * TILE_WIDTH/2;
+									pcSprite.offsetY = -1 * TILE_HEIGHT/2;
+									break;
+								default:
+									throw " pc path failure at " + newTile.x + " , " + newTile.y;
+									break;
+							}
+							break;
+						case 1:
+							switch ( xChange ){
+								case -1:
+									dir = 6;
+									pcSprite.offsetX = TILE_WIDTH;
+									pcSprite.offsetY = 0;
+									break;
+								case 0:
+									dir = 5;
+									pcSprite.offsetX = TILE_WIDTH/2;
+									pcSprite.offsetY = -1 * TILE_HEIGHT/2;
+									break;
+								case 1:
+									dir = 4;
+									pcSprite.offsetX = 0;
+									pcSprite.offsetY = -1 * TILE_HEIGHT;
+									break;
+								default:
+									throw " pc path failure at " + newTile.x + " , " + newTile.y;
+									break;
+							}
+							break;
+						default:
+							throw " pc path failure at " + newTile.x + " , " + newTile.y;
+							break;
+					}
+
+					pcSprite.offsetY -= 5;
+					pc.changeFacing( dir );
+					pc.setParent( newTile );
+
+					// do it again for smooth movement
+					updatePcPos();
+				}
+				else {
+					// at the end of the path!
+					animating = false;
+				}
+			}
+			pc.updateDrawOrder();
+		}
+		else {
+			animating = false;
+		}
+	}
+
+	var travelTo = function( x , y ) {
+		pcTravelPath = getPath( pc.parentTile.x , pc.parentTile.y , x , y );
+		pcNode = 0;
+		animating = true;
+	}
+
+
+		function addListeners(){
+		canvas.onclick = function(e){
+			if( animating ) return false;
+
+			// get click pos
+			var obj = canvas;
+			var curleft = curtop = 0;
+			if (obj.offsetParent) {
+				curleft = obj.offsetLeft
+				curtop = obj.offsetTop
+				while (obj = obj.offsetParent) {
+					curleft += obj.offsetLeft
+					curtop += obj.offsetTop
+				}
+			}
+
+			var mouseX = e.pageX - curleft;
+			var mouseY = e.pageY - curtop;
+
+			// find out which tile this is in
+			var len = tiles.length;
+			for( var t = 0; t < len; t++ ){
+				if( tiles[t].imgCtx.isPointInPath( mouseX - tiles[t].dx - displayOffset.x , mouseY - tiles[t].dy - displayOffset.y ) ){
+					travelTo( tiles[t].x , tiles[t].y );
+					break;
+				}
+			}
+		}
+	}
+
+	</script>
+
+	<style>
+
+		#game_canvas {
+			background: #888;
+		}
+
+		span { display: inline-block; text-align: center; float: left; }
+		.printHeap { width: 1200px; overflow: hidden; }
+		.hl { color: #f00; }
+
+		body { padding: 0; margin: 0; }
+
+	</style>
+</head>
+<body>
+  <p>Click to direct the die to move to that grid square.  If you've loaded with little room to move because you're blocked off, please refresh to randomly generate a new layout.</p>
+	<div id="game"><canvas id="game_canvas" width="1050" height="540" ></canvas></div>
+</body>
+</html>

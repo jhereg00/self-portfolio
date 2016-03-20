@@ -68,6 +68,7 @@
   @include subgridContainer;
   list-style-type: none;
   padding: 0;
+  filter: drop-shadow(2px 3px 0 $dark);
 }
 .archive__list-item {
   @include colspan (12);

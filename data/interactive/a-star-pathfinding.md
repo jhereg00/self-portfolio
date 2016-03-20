@@ -6,7 +6,8 @@ roles:
   - designer
 date: 2012-12-16
 sexiness: 4
-masthead: interactive/a-star/a-star.jpg
+masthead: interactive/a-star/a-star.png
+prototypeUrl: /prototypes/a-star/
 excerpt: |
   Finding the fastest route between two grid squares is surprisingly complicated.
 ---

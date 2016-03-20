@@ -42,9 +42,7 @@ njEnv.addGlobal('dump', function (data) {
 // logging
 app.use(morgan(ENV === 'development' ? 'dev' : 'combined'));
 // static assets
-app.use(express.static('./public/', {
-  index: false // don't send directory index
-}));
+app.use(express.static('./public/'));
 // handle cookies
 app.use(cookieParser());
 // basic routes

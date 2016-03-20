@@ -20,9 +20,12 @@
 .card__image {
   position: relative;
   width: calc(100% - #{$wr * 1.5});
+  height: $vr * 15;
   margin: 0 $wr $vr * -4 $wr / 2;
   box-shadow: 2px 3px 0 $dark;
   z-index: 0;
+  background-size: cover;
+  background-position: center center;
 }
 .card__title {
   position: relative;

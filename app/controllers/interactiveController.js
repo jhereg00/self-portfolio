@@ -25,7 +25,7 @@ router.param('interactiveSlug', function (req, res, next, value) {
     res.locals.entry = entry.data;
 
     // determine what's next
-    var interactives = Interactive.getList('sexiness');
+    var interactives = Interactive.getList('random');
     var relatedEntries = [];
     for (var i = 0; relatedEntries.length < 3 && i < interactives.length; i++) {
       if (interactives[i] !== entry)

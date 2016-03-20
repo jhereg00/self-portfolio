@@ -1,6 +1,6 @@
 <a href="/interactive/{{ article.slug }}" class="card">
   <article>
-    <img src="/images/{{ article.masthead }}" alt="image representing {{ article.title }}" class="card__image">
+    <div class="card__image" style="background-image: url('/images/{{ article.masthead }}')"></div>
     <h1 class="card__title">{{ article.title }}</h1>
     <div class="card__excerpt">{{ article.excerpt }}</div>
     <ul class="card__roles">

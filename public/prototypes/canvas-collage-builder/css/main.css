@@ -1,0 +1,21 @@
+/*
+ * Main styles for the whole project
+ *
+ * Style this sheet to match branding
+*/
+
+/* ---------------- */
+/*    Global        */
+/* ---------------- */
+html, body { background: #f0f0f6; }
+body { font: 16px/1.2 Arial,sans-serif; color: #333; }
+h1,h2,h3,h4 { color: #000; font-weight: bold; margin: 0; }
+p { margin: 0 auto 1em; }
+header { padding-bottom: 1em; margin-bottom: 1em; border-bottom: 1px solid #999; }
+
+/* ---------------- */
+/*   Layout         */
+/* ---------------- */
+.outer-wrap { overflow: hidden; }
+#interface { max-width: 900px; padding: 1em; margin: 0 auto; background: #fefefe; border-width: 0 0 0 3px; border-color: #3a5; border-style: solid; overflow: hidden; }
+section section { border-top: 1px dotted #ccc; padding-top: 1em; }

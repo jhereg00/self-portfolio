@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calendar Selector Toy Test</title>
+    
+    <link rel="stylesheet" type="text/css" href="cal.css" />
+    
+    <style>
+        /* for this test page only */
+        body { background: #ddd; font: 14px/1.2 Arial; margin: 0; padding: 0; }
+        .cal-container, .test-btns { 
+            margin: 20px;
+            
+            background: #f0f0f0;
+            background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #f0f0f0), color-stop(1, #fff));
+            background: -ms-linear-gradient(bottom, #f0f0f0 0, #fff 100%);
+            background: -moz-linear-gradient(center bottom, #f0f0f0 0, #fff 100%);
+            background: -o-linear-gradient(#fff, #f0f0f0);
+            filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#f0f0f0', GradientType=0);
+        }
+        
+        .test-btn { display: inline-block; background: #f0f0f0; border: 1px solid #666; padding: 5px; cursor: pointer; border-radius: 5px; margin: 5px; }
+    </style>
+    
+    
+    
+</head>
+<body>
+    
+    <!-- to pass data, add data-options attribute to .cal-container
+    
+    example:
+        <section class="cal-container" data-options='{ "today":"12-10-2013" }'>
+    -->
+    
+    <section class="cal-container">
+        <header><h2 class="cal-m-y"></h2></header>
+        
+        <div class="cal-main">
+            <div class="cal-wrap">
+                <div class="cal-header-wrap"></div>
+                <div class="cal-body-wrap"></div>
+            </div>
+            <a class="next">Show next week(s)</a>
+            <a class="prev">Show previous week(s)</a>
+        </div>
+        
+        <footer>
+            <a class="clear-btn">Clear Selected Times</a>
+            <a class="submit-btn">Submit Times</a>
+        </footer>
+    </section>
+    
+    <section class="test-btns">
+        <a id="loadSel" class="test-btn">Load Test Selection (hardcoded load)</a><br/>
+        <a id="loadCon" class="test-btn">Load Test Confirmed Selection and disable interaction (hardcoded load)</a>
+    </section>
+        
+    
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <!-- script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script -->
+    <script src="cal.js"></script>
+    
+    <script>
+        // for testing
+        $(function(){
+            $('#loadSel').click(function(e){
+                e.preventDefault();
+                $('#cal_0').cal({
+                    selection : "1/15/2014 12:00 pm - 3:00 pm, 1/15/2014 4:30 pm - 5:30 pm, 1/16/2014 1:00 pm - 3:00 pm, 1/16/2014 4:00 pm - 5:00 pm, 1/20/2014 12:00 pm - 3:00 pm, 1/21/2014 12:00 pm - 1:00 pm, 1/22/2014 12:00 pm - 1:00 pm",
+                    noInteract : false,
+                    confirmed : ""
+                });
+            });
+            $('#loadCon').click(function(e){
+                e.preventDefault();
+                $('#cal_0').cal({
+                    confirmed : "1/16/2014 12:00 pm - 3:00 pm, 1/17/2014 12:00 pm - 3:00 pm, 1/21/2014 12:00 pm - 3:00 pm ",
+                    noInteract : true,
+                    selection : ""
+                });
+            });
+        });
+    </script>
+    
+</body>
+</html>

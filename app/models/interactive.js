@@ -203,6 +203,17 @@ function getBy (prop, val, within, listName) {
 module.exports = {
   getBy: getBy,
   getList: function (listName) {
-    return lists[listName];
+    if (listName !== 'random')
+      return lists[listName];
+    else {
+      // randomize
+      var ret = [];
+      var interactive = allInteractive.slice(0);
+      while (interactive.length) {
+        var i = interactive.splice(Math.floor(Math.random() * interactive.length),1);
+        ret.push(i[0]);
+      }
+      return ret;
+    }
   }
 }
