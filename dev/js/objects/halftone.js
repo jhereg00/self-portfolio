@@ -100,6 +100,7 @@ var Halftone = function (element, settings, dotSizeImage) {
     this.dotSizeImage.src = dotSizeImage;
     this.dotSizeImage.onload = function () {
       _this.sizeDotsByImage();
+      _this.lastDrawnPercentage = null;
       _this.draw(_this.getPercentageFromScroll());
     }
   }
@@ -132,11 +133,18 @@ var Halftone = function (element, settings, dotSizeImage) {
 }
 Halftone.prototype = {
   draw: function (percentage) {
+    // round to .1%
+    percentage = Math.round(percentage * 1000) / 1000;
+    if (percentage == this.lastDrawnPercentage)
+      return;
+
     if (!this.canvas || (percentage < this.settings.inEaseStart || percentage > this.settings.outEaseEnd)) {
       return false;
     }
     // clear current crap
     this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
+
+    // have to do the maths
     this.ctx.save();
     this.ctx.beginPath();
     // handle animation
@@ -163,12 +171,15 @@ Halftone.prototype = {
       this.ctx.drawImage(this.image, this.imageOffsets.x, this.imageOffsets.y, this.imageOffsets.width, this.imageOffsets.height);
     }
     this.ctx.restore();
+
+    this.lastDrawnPercentage = percentage;
   },
   createCanvas: function () {
     // kill existing canvas
     if (this.canvas) {
       this.canvas.remove();
     }
+    this.rendered = {};
     // create new canvas and dots
     this.canvas = document.createElement('canvas');
     this.canvas.setAttribute('class','canvas-halftone');
@@ -258,6 +269,7 @@ Halftone.prototype = {
         var _this = this;
         this.image.onload = function () {
           _this.imageOffsets = _this.sizeImage(_this.image);
+          _this.lastDrawnPercentage = null;
           _this.draw(_this.getPercentageFromScroll());
         }
       }

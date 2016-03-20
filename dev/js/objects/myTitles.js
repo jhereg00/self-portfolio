@@ -10,9 +10,9 @@ var windowSize = require('lib/getWindowSize');
 var HALFTONE_SETTINGS = {
   inEaseFn: eases.easeOut,
   inEaseStart: -.1,
-  inEaseEnd: .6,
+  inEaseEnd: .5,
   outEaseFn: eases.easeIn,
-  outEaseStart: .4,
+  outEaseStart: .5,
   outEaseEnd: 1.1,
   fade: 1,
   fill: '#011C1F',
@@ -20,7 +20,7 @@ var HALFTONE_SETTINGS = {
   control: 'none',
   initialDrawPercentage: 0
 }
-var ANIM_TIME = 20000;
+var ANIM_TIME = 10000;
 
 /**
  *  MyTitles
@@ -36,16 +36,16 @@ var MyTitles = function (element) {
   // for (var i = 0, len = this.halftones.length; i < len; i++) {
   //   this.halftones[i].draw(0);
   // }
-  var index = 0;
+  var index = -1;
   var _this = this;
   function animNext () {
     index = (index + 1) % _this.halftones.length;
     //console.log(index);
-    _this.halftones[index].anim(0,1,ANIM_TIME);
+    _this.halftones[index].anim(0,1,ANIM_TIME,eases.linear);
   }
-  this.halftones[0].anim(.5,1,ANIM_TIME / 2);
+  //this.halftones[0].anim(.5,1,ANIM_TIME / 2,eases.linear);
   animNext();
-  window.setInterval(animNext,ANIM_TIME * .5);
+  window.setInterval(animNext,ANIM_TIME * .8);
 }
 
 var myTitlesEls = document.querySelectorAll('.my-titles');
