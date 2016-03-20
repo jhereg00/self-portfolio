@@ -9,7 +9,7 @@ var footerHalftoneEl = document.querySelector('.footer-main__halftone');
 if (footerHalftoneEl) {
   var footerHalftone = new Halftone (footerHalftoneEl, {
     fade: 12,
-    maxRadius: 20,
+    maxRadius: 15,
     inEaseStart: -.25,
     inEaseEnd: .1,
     inEaseFn: eases.linear,

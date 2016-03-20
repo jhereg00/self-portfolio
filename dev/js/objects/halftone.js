@@ -13,7 +13,7 @@ var loop = require('lib/loop');
 // settings
 var DEFAULTS = {
   fade: 4, // rows to fade top and bottom, if 0 the canvas is sized to be contained instead of overflow on the sides
-  maxRadius: 12, // maximum radius for a dot
+  maxRadius: 15, // maximum radius for a dot
   inEaseFn: eases.easeOut,
   inEaseStart: .2, // scroll percentage to start animation in on first dot
   inEaseEnd: .8, // scroll percentage to end animation in on last dot
@@ -135,10 +135,9 @@ Halftone.prototype = {
   draw: function (percentage) {
     // round to .1%
     percentage = Math.round(percentage * 1000) / 1000;
-    if (percentage == this.lastDrawnPercentage)
-      return;
 
-    if (!this.canvas || (percentage < this.settings.inEaseStart || percentage > this.settings.outEaseEnd)) {
+    // should we bother?
+    if (percentage == this.lastDrawnPercentage || !this.canvas || (percentage < this.settings.inEaseStart || percentage > this.settings.outEaseEnd)) {
       return false;
     }
     // clear current crap
@@ -156,12 +155,10 @@ Halftone.prototype = {
     effectiveOutPerc = effectiveOutPerc > 0 ? this.settings.outEaseFn(2,-3,effectiveOutPerc) : 2;
 
     for (var i = 0, len = this.dots.length; i < len; i++) {
-      if (this.dots[i].maxRadius > .5) {
-        var dotInPerc = effectiveInPerc - this.dots[i].percentage;
-        var dotOutPerc = effectiveOutPerc - (1 - this.dots[i].percentage);
-        this.dots[i].setRadiusByPercentage(Math.min(dotInPerc,dotOutPerc));
-        this.dots[i].draw(this.ctx);
-      }
+      var dotInPerc = effectiveInPerc - this.dots[i].percentage;
+      var dotOutPerc = effectiveOutPerc - (1 - this.dots[i].percentage);
+      this.dots[i].setRadiusByPercentage(Math.min(dotInPerc,dotOutPerc));
+      this.dots[i].draw(this.ctx);
     }
 
     this.ctx.fill();
@@ -175,11 +172,35 @@ Halftone.prototype = {
     this.lastDrawnPercentage = percentage;
   },
   createCanvas: function () {
+    var _this = this;
+    function addCanvas () {
+      if (_this.element.children.length) {
+        _this.element.insertBefore(_this.canvas, _this.element.children[0]);
+      }
+      else {
+        _this.element.appendChild(_this.canvas);
+      }
+    }
+    function enableCanvas () {
+      // establish scroll based controls only if screen is large enough for us to care
+      if (getBreakpoint() >= BREAKPOINT_FOR_SCROLL_CONTROL && _this.settings.control === 'scroll') {
+        _this.scrollController = new ScrollController(_this.element, _this.onScroll);
+      }
+      else {
+        if (_this.scrollController) {
+          _this.scrollController.destroy();
+          _this.scrollController = null;
+        }
+        _this.draw(_this.getPercentageFromScroll());
+      }
+    }
     // kill existing canvas
+    var lastCanvas;
     if (this.canvas) {
+      lastCanvas = this.canvas;
       this.canvas.remove();
     }
-    this.rendered = {};
+
     // create new canvas and dots
     this.canvas = document.createElement('canvas');
     this.canvas.setAttribute('class','canvas-halftone');
@@ -210,18 +231,21 @@ Halftone.prototype = {
     }
     this.canvas.width = (columns - 1) * this.settings.maxRadius;
     this.canvas.height = (this.settings.fade ? rows + 1 : rows - 1) * this.settings.maxRadius;
+
+    // check that we even need to do this shit
+    if (lastCanvas && lastCanvas.width === this.canvas.width && lastCanvas.height === this.canvas.height) {
+      // stop remaking, it's the same!
+      this.canvas = lastCanvas;
+      addCanvas();
+      enableCanvas();
+      return;
+    }
+
+    // set the context
     this.ctx = this.canvas.getContext('2d');
     this.ctx.fillStyle = this.fill;
     this.columns = columns;
     this.rows = rows;
-
-    // center in container
-    // if (!this.settings.fixed || getBreakpoint < BREAKPOINT_FOR_SCROLL_CONTROL) {
-    //   this.canvas.style.position = 'absolute';
-    //   this.canvas.style.top = (this.element.offsetHeight - this.canvas.height) / 2 + 'px';
-    //   this.canvas.style.left = (this.element.offsetWidth - this.canvas.width) / 2 + 'px';
-    // }
-
 
     // define the dots
     this.dots = [];
@@ -279,17 +303,7 @@ Halftone.prototype = {
       this.sizeDotsByImage();
     }
 
-    // establish scroll based controls only if screen is large enough for us to care
-    if (getBreakpoint() >= BREAKPOINT_FOR_SCROLL_CONTROL && this.settings.control === 'scroll') {
-      this.scrollController = new ScrollController(this.element, this.onScroll);
-    }
-    else {
-      if (this.scrollController) {
-        this.scrollController.destroy();
-        this.scrollController = null;
-      }
-      this.draw(this.getPercentageFromScroll());
-    }
+    enableCanvas();
   },
   sizeImage: function (image) {
     // make sure we successfully loaded

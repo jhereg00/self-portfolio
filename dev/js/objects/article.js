@@ -11,7 +11,7 @@ var eases = require('lib/ease');
 // settings
 var HEADER_HALFTONE_SETTINGS = {
   fade: 12,
-  maxRadius: 20
+  inEaseStart: .1
 }
 var INNER_HALFTONE_SETTINGS = {
   fade: 0,
@@ -19,7 +19,8 @@ var INNER_HALFTONE_SETTINGS = {
   inEaseStart: .1, // scroll percentage to start animation in on first dot
   inEaseEnd: .5, // scroll percentage to end animation in on last dot
   outEaseStart: .75,
-  cornering: 8
+  cornering: 8,
+  maxRadius: 12
 }
 var RELATED_HALFTONE_SETTINGS = {
   fade: 0,
@@ -27,7 +28,8 @@ var RELATED_HALFTONE_SETTINGS = {
   inEaseEnd: .8,
   inEaseFn: eases.linear,
   outEaseStart: .6,
-  outEaseEnd: 1.2
+  outEaseEnd: 1.2,
+  maxRadius: 12
 }
 
 /**
