@@ -281,7 +281,7 @@ Halftone.prototype = {
   },
   sizeImage: function (image) {
     // make sure we successfully loaded
-    if (!image.width || !image.height) {
+    if (!image || !image.width || !image.height) {
       return false;
     }
 
