@@ -30,9 +30,9 @@ var MyTitles = function (element) {
   this.element = element;
 
   this.halftones = [];
-  this.halftones.push(new Halftone(element, HALFTONE_SETTINGS, '/images/dotSizeImageTest.jpg'));
-  this.halftones.push(new Halftone(element, HALFTONE_SETTINGS, '/images/dotSizeImageTest2.jpg'));
-  this.halftones.push(new Halftone(element, HALFTONE_SETTINGS, '/images/dotSizeImageTest3.jpg'));
+  this.halftones.push(new Halftone(element, HALFTONE_SETTINGS, '/images/dotsize-musician.jpg'));
+  this.halftones.push(new Halftone(element, HALFTONE_SETTINGS, '/images/dotsize-goalie.jpg'));
+  this.halftones.push(new Halftone(element, HALFTONE_SETTINGS, '/images/dotsize-geek.jpg'));
   // for (var i = 0, len = this.halftones.length; i < len; i++) {
   //   this.halftones[i].draw(0);
   // }
