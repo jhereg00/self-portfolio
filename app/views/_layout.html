@@ -6,7 +6,7 @@
   <link rel="icon" type="image/png" href="/favicon.png" />
   <title>{% if title %}{{ title }} - {% endif %}Portfolio of Glenn Martin</title>
 
-  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/styles{% if env != 'development' %}.min{% endif %}.css">
 </head>
 <body data-page-type="{{ pageType }}">
   <div class="global-container">
@@ -52,6 +52,6 @@
     {% endif %}
   </div>
 
-  <script src="/js/scripts.js"></script>
+  <script src="/js/scripts{% if env != 'development' %}.min{% endif %}.js"></script>
 </body>
 </html>

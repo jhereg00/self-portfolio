@@ -88,7 +88,6 @@ function loadAllFromData () {
     }
     else {
       for (var file in data) {
-        console.log(data[file]);
         if (/^[^_].*\.md$/.test(data[file])) {
           // "valid" markdown file
           allIllustrations.push(new Illustration(data[file]));
@@ -178,7 +177,6 @@ function sortLists () {
  *  [@param {string}] name of a pre-sorted list to match against instead of 'all'
  */
 function getBy (prop, val, within, listName) {
-  console.log('getBy',prop,val);
   var ret = [];
   var list = listName && lists[listName] ? lists[listName] : allIllustrations;
   if (!within) {
