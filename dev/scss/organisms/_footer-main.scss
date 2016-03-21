@@ -1,6 +1,9 @@
 // Main Footer
 .footer-main {
   position: relative;
+  [data-page-type="gallery"] & {
+    z-index: 8675309;
+  }
 }
 .footer-main__halftone {
   // position: absolute;

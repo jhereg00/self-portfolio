@@ -7,5 +7,6 @@
 // objects
 require('objects/scrollOnLoad');
 require('objects/article');
+require('objects/illustration');
 require('objects/footer');
 require('objects/myTitles');

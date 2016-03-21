@@ -25,7 +25,8 @@ var DEFAULTS = {
   cornering: 0, // diagnal top left fade
   control: 'scroll', // 'scroll', 'mouse' (TODO), or 'none'
   fill: null, // optionally override fill color
-  initialDrawPercentage: .55 // percentage to draw right away
+  initialDrawPercentage: .55, // percentage to draw right away
+  minBreakpoint: 0 // minimum breakpoint that canvas can exist
 }
 var BREAKPOINT_FOR_SCROLL_CONTROL = 2;
 
@@ -139,9 +140,11 @@ Halftone.prototype = {
     percentage = Math.round(percentage * 1000) / 1000;
 
     // should we bother?
-    if (percentage == this.lastDrawnPercentage || !this.canvas || (percentage < this.settings.inEaseStart || percentage > this.settings.outEaseEnd)) {
+    if (!this.canvas || percentage == this.lastDrawnPercentage || (percentage < this.settings.inEaseStart || percentage > this.settings.outEaseEnd)) {
       return false;
     }
+
+      console.log('draw');
 
     // clear current crap
     this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
@@ -175,6 +178,17 @@ Halftone.prototype = {
     this.lastDrawnPercentage = percentage;
   },
   createCanvas: function () {
+    if (getBreakpoint() < this.settings.minBreakpoint) {
+      console.log('too small!', this.canvas);
+      // we want no canvas!
+      if (this.canvas) {
+        this.canvas.remove();
+        this.canvas = null;
+      }
+      return false;
+    }
+
+    // good to actually make the thing
     var _this = this;
     function addCanvas () {
       if (_this.element.children.length) {
@@ -230,7 +244,7 @@ Halftone.prototype = {
       setTransform(this.element,'none');
       setTransform(this.canvas,'none');
       this.canvas.style.position = 'fixed';
-      this.canvas.style.top = this.settings.fade * this.settings.maxRadius * -1 + 'px';
+      this.canvas.style.top = this.settings.fade * this.settings.maxRadius * -1 - (this.settings.maxRadius) + 'px';
       this.canvas.style.left = 0;
     }
     this.canvas.width = (columns - 1) * this.settings.maxRadius;

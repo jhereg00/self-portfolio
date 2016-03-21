@@ -48,6 +48,7 @@ app.use(cookieParser());
 // basic routes
 app.use(require('./app/controllers/index'));
 app.use(require('./app/controllers/interactiveController'));
+app.use(require('./app/controllers/illustrationController'));
 
 //////////////
 // Start Express App

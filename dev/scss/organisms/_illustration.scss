@@ -1,0 +1,107 @@
+// Illustration
+.illustration {
+  filter: drop-shadow(4px 6px 0 $dark);
+  @extend %clear-fix;
+}
+.illustration__main {
+  position: relative;
+  box-sizing: border-box;
+  padding-bottom: $vr * 3;
+  @extend %clear-fix;
+
+  @include mq ($bp-medium) {
+    min-height: 100vh;
+  }
+
+  .canvas-halftone {
+    @include mq ($bp-medium) {
+      z-index: 10;
+        filter: drop-shadow(2px 3px 0 $dark);
+    }
+  }
+}
+.illustration__image {
+  background: $light center center no-repeat;
+  background-size: contain;
+  margin: 0 $wr * -1;
+
+  img {
+    display: block;
+    max-height: 100vh;
+  }
+
+  @include mq ($bp-medium) {
+    position: absolute;
+    top: 0; right: 0; bottom: 0; left: 0;
+    img {
+      display: none;
+    }
+  }
+}
+.illustration__header {
+  position: relative;
+  @include colspan (8);
+  @include colpush (4);
+  background: $off-white;
+  padding: $vr * 2 $wr * 2;
+  margin-top: $vr * -1;
+  z-index: 1;
+
+  @include mq ($bp-medium) {
+    padding: $vr * 3 $wr * 3;
+    margin-top: $vr * 2;
+    clip-path: polygon(#{$wr * 4} 0, 100% 0, 100% calc(100% - #{$wr * 4}), calc(100% - #{$wr * 4}) 100%, 0 100%, 0 #{$wr * 4});
+  }
+
+  h1 {
+    @extend %content-header;
+  }
+
+  .button {
+    max-width: $wr * 20;
+    margin-left: 0;
+  }
+
+  > :first-child {
+    margin-top: 0;
+  }
+  > :last-child, .button:last-child {
+    margin-bottom: 0;
+  }
+}
+.illustration__content {
+  @include subgridContainer;
+}
+.illustration__figure {
+  position: relative;
+  z-index: 3;
+  padding: 0;
+  margin: $vr * -4 $wr * -4 $vr * -4 0;
+  max-width: 80%;
+  float: left;
+  filter: drop-shadow(2px 3px 0 $dark);
+  @include mq ($bp-medium) {
+    margin-left: $wr;
+  }
+
+  img {
+    display: block;
+  }
+}
+.illustration__detail {
+  position: relative;
+  z-index: 2;
+  @include colspan (8);
+  @include colpush (4);
+  background: $off-white;
+  color: $black;
+  padding: $vr * 5 $wr * 3;
+  clip-path: polygon(0 0, calc(100% - #{$wr * 3}) 0, 100% #{$wr * 3}, 100% 100%, #{$wr * 3} 100%, 0 calc(100% - #{$wr * 3}));
+
+  > :first-child {
+    margin-top: 0;
+  }
+  > :last-child {
+    margin-bottom: 0;
+  }
+}

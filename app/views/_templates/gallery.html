@@ -1,0 +1,34 @@
+{% set pageType = 'gallery' %}
+
+{% extends '_layout.html' %}
+
+{% block content %}
+
+  <div class="gallery">
+    <div class="gallery__inner">
+      <ul class="gallery__list">
+        {% for piece in pieces %}
+          <li class="gallery__list-item">
+            {% include '_partials/illustration.html' %}
+          </li>
+        {% endfor %}
+      </ul>
+
+      {#<div class="dev-grid">
+        <div class="dev-grid__column"></div>
+        <div class="dev-grid__column"></div>
+        <div class="dev-grid__column"></div>
+        <div class="dev-grid__column"></div>
+        <div class="dev-grid__column"></div>
+        <div class="dev-grid__column"></div>
+        <div class="dev-grid__column"></div>
+        <div class="dev-grid__column"></div>
+        <div class="dev-grid__column"></div>
+        <div class="dev-grid__column"></div>
+        <div class="dev-grid__column"></div>
+        <div class="dev-grid__column"></div>
+      </div>#}
+    </div>
+  </div>
+
+{% endblock %}

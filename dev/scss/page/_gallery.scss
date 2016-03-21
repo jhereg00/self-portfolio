@@ -1,0 +1,27 @@
+.gallery {
+  position: relative;
+  max-width: $site-max-width;
+  margin: $vr * 4 $wr $vr * 12;
+  z-index: 1;
+  @extend %clear-fix;
+  @include mq ($bp-medium) {
+    padding-top: 50vh;
+    margin-left: $width-margin + $wr;
+    margin-right: $width-margin + $wr;
+  }
+  @include mq ($bp-large) {
+    margin-left: $width-margin-large;
+    margin-right: $width-margin-large;
+  }
+}
+.gallery__list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+.gallery__list-item {
+  margin-top: 50vh;
+  &:first-child {
+    margin-top: 0;
+  }
+}

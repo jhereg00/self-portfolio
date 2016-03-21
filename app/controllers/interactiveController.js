@@ -5,10 +5,6 @@
 // requirements
 const express = require('express');
 const router = express.Router();
-const marked = require('marked');
-const yamlFront = require('yaml-front-matter');
-const fs = require('fs');
-const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
 const Interactive = require('../models/interactive');
 
