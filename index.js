@@ -45,10 +45,15 @@ app.use(morgan(ENV === 'development' ? 'dev' : 'combined'));
 app.use(express.static('./public/'));
 // handle cookies
 app.use(cookieParser());
+// add template data
+app.use(require('./app/middleware/templateData'));
 // basic routes
 app.use(require('./app/controllers/index'));
 app.use(require('./app/controllers/interactiveController'));
 app.use(require('./app/controllers/illustrationController'));
+// handle errors
+app.use(require('./app/controllers/404').handle);
+app.get('*',require('./app/controllers/404').render);
 
 //////////////
 // Start Express App

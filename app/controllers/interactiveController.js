@@ -32,7 +32,9 @@ router.param('interactiveSlug', function (req, res, next, value) {
     next();
   }
   else {
-    res.sendStatus(404);
+    var err = new Error();
+    err.status = 404;
+    return next(err);
   }
 });
 
