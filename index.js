@@ -11,7 +11,7 @@ const cookieParser = require('cookie-parser');
 
 // settings
 const ENV = process.env.NODE_ENV || 'development';
-const PORT = process.env.PORT || (ENV === 'development' ? 3000 : 8080);
+const PORT = process.env.PORT || (ENV === 'development' ? 3000 : 3000);
 
 // init express
 var app = express();
