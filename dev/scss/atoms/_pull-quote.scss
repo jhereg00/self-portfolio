@@ -1,9 +1,12 @@
 // Pull Quote
 .pull-quote {
   @include h4;
-  @extend %content-header;
-  color: $light;
-  background: $neutral;
+  @include font-secondary;
+  // @extend %content-header;
+  // color: $light;
+  // background: $neutral;
+  color: $off-white;
+  background: $light;
   padding: $vr * 4;
   margin-bottom: $vr * 3;
 
