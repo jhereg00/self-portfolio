@@ -7,6 +7,10 @@
   <title>{% if title %}{{ title }} - {% endif %}Portfolio of Glenn Martin</title>
 
   <link rel="stylesheet" href="/css/styles{% if env != 'development' %}.min{% endif %}.css">
+
+  <meta property="og:image" content="/images/share-image.png">
+  <meta property="og:title" content="{% if title %}{{ title }} - {% endif %}Portfolio of Glenn Martin">
+  <meta property="og:site_name" content="Portfolio of Glenn Martin">
 </head>
 <body data-page-type="{{ pageType }}">
   <div class="global-container">
