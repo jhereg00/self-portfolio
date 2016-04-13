@@ -87,6 +87,11 @@
   img {
     display: block;
   }
+
+  &.right {
+    float: right;
+    margin-right: 0;
+  }
 }
 .illustration__detail {
   position: relative;
@@ -103,5 +108,9 @@
   }
   > :last-child {
     margin-bottom: 0;
+  }
+
+  &.left {
+    margin-left: 0;
   }
 }

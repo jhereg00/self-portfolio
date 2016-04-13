@@ -140,9 +140,18 @@ Halftone.prototype = {
     percentage = Math.round(percentage * 1000) / 1000;
 
     // should we bother?
-    if (!this.canvas || percentage == this.lastDrawnPercentage || (percentage < this.settings.inEaseStart || percentage > this.settings.outEaseEnd)) {
+    if (!this.canvas || percentage == this.lastDrawnPercentage) {
       return false;
     }
+    else if (percentage < this.settings.inEaseStart || percentage > this.settings.outEaseEnd) {
+      // fix for chrome rendering error from stacking canvases
+      if (this.settings.fixed) {
+        this.canvas.style.display = 'none';
+      }
+      return false;
+    }
+
+    this.canvas.style.display = 'block';
 
     // clear current crap
     this.ctx.clearRect(0,0,this.canvas.width,this.canvas.height);
@@ -242,7 +251,7 @@ Halftone.prototype = {
       setTransform(this.element,'none');
       setTransform(this.canvas,'none');
       this.canvas.style.position = 'fixed';
-      this.canvas.style.top = this.settings.fade * this.settings.maxRadius * -1 - (this.settings.maxRadius) + 'px';
+      this.canvas.style.top = this.settings.fade * this.settings.maxRadius * -1 - (this.settings.maxRadius / 2) + 'px';
       this.canvas.style.left = 0;
     }
     this.canvas.width = (columns - 1) * this.settings.maxRadius;
