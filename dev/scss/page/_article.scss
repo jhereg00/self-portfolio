@@ -211,6 +211,10 @@ $header-height: 50vh;
     @include mq ($bp-large) {
       margin-top: $vr * 3;
       @include colspan (3,3);
+
+			&:first-child {
+				margin-top: 0;
+			}
     }
 
     @include mq-lt ($bp-small) {

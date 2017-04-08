@@ -11,14 +11,16 @@
           <h1 class="article__title">{{ entry.title }}</h1>
           <aside class="article__details">
             <div class="article__details-grid">
-              <nav class="article__details-nav">
-                {% if entry.siteUrl %}
-                  <a class="button" href="{{ entry.siteUrl }}" target="_blank"><div class="button__text">View Site</div></a>
-                {% endif %}
-                {% if entry.prototypeUrl %}
-                  <a class="button" href="{{ entry.prototypeUrl }}" target="_blank"><div class="button__text">View Prototype</div></a>
-                {% endif %}
-              </nav>
+							{% if entry.siteUrl or entry.prototypeUrl %}
+	              <nav class="article__details-nav">
+	                {% if entry.siteUrl %}
+	                  <a class="button" href="{{ entry.siteUrl }}" target="_blank"><div class="button__text">View Site</div></a>
+	                {% endif %}
+	                {% if entry.prototypeUrl %}
+	                  <a class="button" href="{{ entry.prototypeUrl }}" target="_blank"><div class="button__text">View Prototype</div></a>
+	                {% endif %}
+	              </nav>
+							{% endif %}
               <div class="roles">
                 {% if entry.roles %}
                   <h4 class="roles__header">My Role{% if entry.roles|length > 1 %}s{% endif %}</h4>

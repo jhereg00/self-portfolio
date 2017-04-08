@@ -1,7 +1,7 @@
 ---
 title: It's Raining Cats and Dogs Flyer
 date: 2016-04-07
-sexiness: 4
+sexiness: 3
 bgColor: '#191c1e'
 image: illustration/raining-cats-and-dogs.png
 ---
